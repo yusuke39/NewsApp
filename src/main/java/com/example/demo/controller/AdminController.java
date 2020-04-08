@@ -10,11 +10,22 @@ public class AdminController {
     /**
      * ログイン画面の表示をする.
      *
-     * @return ログイン画面
+     * @return 管理者ログイン画面
      */
     @RequestMapping("/login")
     public String login(){
         return"/admin/adminLogin";
+    }
+
+
+    /**
+     * 管理者新規登録画面を表示する
+     *
+     * @return 管理者新規登録画面
+     */
+    @RequestMapping("/register")
+    public String register(){
+        return "/admin/adminRegister";
     }
 
 }

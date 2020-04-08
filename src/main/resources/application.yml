@@ -4,3 +4,19 @@ spring:
     url: jdbc:mysql://localhost:3306/NewsApp
     username: root
     password: reoreo39
+
+    spring:
+      profiles: docker
+      datasource:
+        driverClassName: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://dbserver/mydb
+        username: root
+        password: reoreo39
+      jpa:
+        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+        show-sql: true
+        hibernate:
+          ddl-auto: update
+      data:
+        rest:
+          base-path: /api
