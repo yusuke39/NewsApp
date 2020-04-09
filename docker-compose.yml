@@ -1,0 +1,44 @@
+version: '3.7'
+services:
+
+#  ------------------ nginx ---------------------------------
+  nginx:
+    container_name: nginx
+    build: ./docker/nginx
+    links:
+      - jdk
+    ports:
+      - "80:80"
+    volumes:
+      - ./docker/nginx/conf:/etc/nginx/conf.d
+      # Spring Bootでのstaticファイルを配置
+      - ./src/main/resources/static:/usr/share/nginx/www
+
+#  ------------------ jdk -----------------------------------
+
+  jdk:
+    container_name: jdk
+    build:
+      context: .
+      dockerfile: ./docker/jdk/Dockerfile
+    expose:
+      - 8080
+    depends_on:
+      - mysql
+    links:
+      - mysql
+
+#  ------------------ mysql ---------------------------------
+  mysql:
+    container_name: mysql
+    build: ./docker/mysql
+    ports:
+      - "3306:3306"
+    expose:
+      - '3306'
+    volumes:
+      # 初期データを投入するSQLが格納されているdir
+      - ./docker/mysql/mysql_init:/docker-entrypoint-initdb.d
+      # 永続化するときにマウントするdir
+      - ./docker/mysql/mysql_data:/var/lib/mysql
+      - ./docker/mysql/mysql_conf/:/etc/mysql/conf.d
