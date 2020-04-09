@@ -16,6 +16,9 @@ CREATE TABLE IF NOT EXISTS `NewsApp`.`admins` (
     `image` MEDIUMBLOB NOT NULL,
     `contents` TEXT NOT NULL,
     `genre` INT NOT NULL,
+    `admins_id` INT NOT NULL,
+    FOREIGN KEY(admins_id)
+    REFERENCES admins(id),
     PRIMARY KEY (`id`));
 
 
@@ -26,3 +29,5 @@ CREATE TABLE IF NOT EXISTS `NewsApp`.`admins` (
      `password` VARCHAR(45) NOT NULL,
      PRIMARY KEY (`id`),
      UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE);
+
+ insert into admins (id,name,email,password) values (1,'平野祐介','yusuke@gmail.com','111');
