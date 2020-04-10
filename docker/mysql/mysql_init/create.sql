@@ -30,4 +30,5 @@ CREATE TABLE IF NOT EXISTS `NewsApp`.`admins` (
      PRIMARY KEY (`id`),
      UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE);
 
- insert into admins (name,email,password) values ('平野祐介','yusuke@gmail.com','111');
+ insert into admins (id,name,email,password) values (1,'平野祐介','yusuke@gmail.com','111');
+ insert into admins (id,name,email,password) values (2,'平野レオ','reo@gmail.com','111');
