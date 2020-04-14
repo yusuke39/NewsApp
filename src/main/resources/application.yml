@@ -1,17 +1,17 @@
 spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/NewsApp
+    url: jdbc:mysql://mysql:3306/NewsApp
     username: root
-    password: reoreo39
+    password: password
 
     spring:
       profiles: docker
       datasource:
         driverClassName: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://dbserver/mydb
+        url: jdbc:mysql://dbserver/NewsApp
         username: root
-        password: reoreo39
+        password: password
       jpa:
         database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
         show-sql: true
