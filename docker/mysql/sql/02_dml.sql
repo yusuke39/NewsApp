@@ -1,0 +1,1 @@
+INSERT INTO admins (id, name, email, password) VALUES (1, '平野レオ', 'reo@gmail.com', '111');
