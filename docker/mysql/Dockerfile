@@ -12,7 +12,6 @@ RUN mv entrykit /usr/local/bin/
 RUN entrykit --symlink
 
 #スクリプトと各種設定ファイルのコピー
-CMD ["/bin/bash", "chmod", "+x", "add-server-id.sh"]
 COPY ./add-server-id.sh /usr/local/bin/
 COPY ./mysql.conf.d/mysqld.cnf /etc/mysql/mysql.conf.d/
 COPY ./conf.d/mysql.cnf /etc/mysql/conf.d/
@@ -21,7 +20,7 @@ COPY ./init-data.sh /usr/local/bin/
 COPY ./sql /sql
 
 #スクリプトとmysqlの実行
-c, "--", "docker-entrypoint.sh"]
+ENTRYPOINT ["prehook", "/usr/local/bin/add-server-id.sh", "--", "docker-entrypoint.sh"]
 
 CMD ["mysqld"]
 

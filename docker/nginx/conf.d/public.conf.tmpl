@@ -3,6 +3,8 @@ server {
     server_name {{ var "SERVER_NAME" | default "localhost"}}
     charset utf-8;
 
+
+
     location / {
         proxy_pass http://backend;
         proxy_pass_request_headers on;
@@ -15,4 +17,5 @@ server {
         error_log /var/log/nginx/backend_erro.log;
         {{ end }}
     }
+
 }

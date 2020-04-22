@@ -14,6 +14,7 @@ public class AdminController {
      */
     @RequestMapping("/login")
     public String login(){
+
         return"/admin/adminLogin";
     }
 
