@@ -1,35 +1,36 @@
 version: 2
 jobs:
-  deploy:
-    docker:
-      - image: google/cloud-sdk
-    steps:
-      - checkout
-      - setup-remote-docker:
-          version: 19.03.8
-      - run:
-          name: GCP Authenticate
-          command:
-            echo $GKE_SERVICE_KEY
-            gcloud auth activate-service-account --key-file $GKE_SERVICE_KEY
-            gcloud auth configure-docker
-      - run:
-          name: gcloud setting
-          command:
-            gcloud config set project $GKE_PROJECT
-            gcloud container cluster get-credentials $GKE_CLUSTER_NAME
-      - run:
-          name: Build image
-          command: |
-            docker build -t $GKE_GCR_REPO_JDK:${CIRCLE_SHA1} .
-      - run:
-          name: push image to GCR
-          command:
-            gcloud docker -- push $GKE_GCR_REPO_JDK:${CIRCLE_SHA1}
-      - run:
-          name: deploy
-          command:
-            kubectl set image deployment/newsapp-api.yaml jdk=$GKE_GCR_REPO_JDK:latest:${CIRCLE_SHA1}
+  build:
+    deploy:
+      docker:
+        - image: google/cloud-sdk
+      steps:
+        - checkout
+        - setup-remote-docker:
+            version: 19.03.8
+        - run:
+            name: GCP Authenticate
+            command:
+              echo $GKE_SERVICE_KEY
+              gcloud auth activate-service-account --key-file $GKE_SERVICE_KEY
+              gcloud auth configure-docker
+        - run:
+            name: gcloud setting
+            command:
+              gcloud config set project $GKE_PROJECT
+              gcloud container cluster get-credentials $GKE_CLUSTER_NAME
+        - run:
+            name: Build image
+            command: |
+              docker build -t $GKE_GCR_REPO_JDK:${CIRCLE_SHA1} .
+        - run:
+            name: push image to GCR
+            command:
+              gcloud docker -- push $GKE_GCR_REPO_JDK:${CIRCLE_SHA1}
+        - run:
+            name: deploy
+            command:
+              kubectl set image deployment/newsapp-api.yaml jdk=$GKE_GCR_REPO_JDK:latest:${CIRCLE_SHA1}
 
 wrokflows:
   version: 2
