@@ -1,47 +1,41 @@
 version: 2
 jobs:
   build:
-    deploy:
-      docker:
-        - image: google/cloud-sdk
-      steps:
-        - checkout:
-        - setup-remote-docker:
-            version: 19.03.8
-        - run:
-            name: GCP Authenticate
-            command: |
-              echo $GKE_SERVICE_KEY
-              gcloud auth activate-service-account --key-file $GKE_SERVICE_KEY
-              gcloud auth configure-docker
-        - run:
-            name: gcloud setting
-            command: |
-              gcloud config set project $GKE_PROJECT
-              gcloud container cluster get-credentials $GKE_CLUSTER_NAME
-        - run:
-            name: Build image
-            command: |
-              docker build -t $GKE_GCR_REPO_JDK:${CIRCLE_SHA1} .
-        - run:
-            name: push image to GCR
-            command: |
-              gcloud docker -- push $GKE_GCR_REPO_JDK:${CIRCLE_SHA1}
-        - run:
-            name: deploy
-            command: |
-              kubectl set image deployment/newsapp-api.yaml jdk=$GKE_GCR_REPO_JDK:latest:${CIRCLE_SHA1}
+    docker:
+      - image: google/cloud-sdk
+    working_directory: /NewsApp
+    steps:
+      - checkout
+      - setup_remote_docker
+#      - run:
+#          name: GCP Authenticate
+#          command: |
+#            echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ${HOME}/gcloud-service-key.json
+#            gcloud auth activate-service-account --key-file ${GCLOUD_SERVICE_KEY}
+#            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+#            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+#      - run:
+#          name: Build image
+#          command:
+#              docker build -t asia.gcr.io/newsapp-273606/newsappjdk:$CIRCLE_SHA1 -f /NewsApp/docker/jdk/Dockerfile .
+#      - run:
+#          name: push image
+#          command: |
+#            gcloud docker -- push asia.gcr.io/newsapp-273606/newsappjdk:$CIRCLE_SHA1
+#      - run:
+#          name: deploy
+#          command: |
+#            kubectl set image deployment/newsapp-api.yaml jdk=asia.gcr.io/newsapp-273606/newsappjdk:latest:${CIRCLE_SHA1}
 
-wrokflows:
-  version: 2
-  deploy_production:
-    jobs:
-      - deploy:
-          filters:
-            branches:
-              only:
-                - master
-
+#workflows :
+#  version: 2
+#  deploy_production:
+#    jobs:
+#      - deploy:
+#          filters:
+#            branches:
+#              only:
+#                - master
 
 
 
