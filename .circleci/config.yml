@@ -1,0 +1,100 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: google/cloud-sdk
+    working_directory: /NewsApp
+    steps:
+      - checkout
+      - setup_remote_docker
+#      - run:
+#          name: GCP Authenticate
+#          command: |
+#            echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ${HOME}/gcloud-service-key.json
+#            gcloud auth activate-service-account --key-file ${GCLOUD_SERVICE_KEY}
+#            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+#            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+#      - run:
+#          name: Build image
+#          command:
+#              docker build -t asia.gcr.io/newsapp-273606/newsappjdk:$CIRCLE_SHA1 -f /NewsApp/docker/jdk/Dockerfile .
+#      - run:
+#          name: push image
+#          command: |
+#            gcloud docker -- push asia.gcr.io/newsapp-273606/newsappjdk:$CIRCLE_SHA1
+#      - run:
+#          name: deploy
+#          command: |
+#            kubectl set image deployment/newsapp-api.yaml jdk=asia.gcr.io/newsapp-273606/newsappjdk:latest:${CIRCLE_SHA1}
+
+#workflows :
+#  version: 2
+#  deploy_production:
+#    jobs:
+#      - deploy:
+#          filters:
+#            branches:
+#              only:
+#                - master
+
+
+
+
+
+
+
+# Java Gradle CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-java/ for more details
+#
+#version: 2
+#jobs:
+#  deploy:
+#    docker:
+#      - image: gcr.io/project/asia.gcr.io/newsapp-273606/newsappjdk@sha256:6a37ee7269841b1159150585ab6d6b7a9546c617028423d01db2d3b0c8b0deb1
+#        auth:
+#          username: _json_key  # JSON キーファイルを使用して認証する場合のデフォルトのユーザー名
+#          password: $GCLOUD_SERVICE_KEY  # 作成した JSON サービスアカウント、base64 にエンコードしない
+#
+#
+
+
+
+
+#jobs:
+#  build:
+#    docker:
+#      # specify the version you desire here
+#      - image: circleci/openjdk:11-jdk
+#
+#      # Specify service dependencies here if necessary
+#      # CircleCI maintains a library of pre-built images
+#      # documented at https://circleci.com/docs/2.0/circleci-images/
+#      # - image: circleci/postgres:9.4
+#
+#    working_directory: ~/repo
+#
+#    environment:
+#      # Customize the JVM maximum heap limit
+#      JVM_OPTS: -Xmx3200m
+#      TERM: dumb
+#
+#    steps:
+#      - checkout
+#
+#      # Download and cache dependencies
+#      - restore_cache:
+#          keys:
+#            - v1-dependencies-{{ checksum "build.gradle" }}
+#            # fallback to using the latest cache if no exact match is found
+#            - v1-dependencies-
+#
+#      - run: gradle dependencies
+#
+#      - save_cache:
+#          paths:
+#            - ~/.gradle
+#          key: v1-dependencies-{{ checksum "build.gradle" }}
+#
+#      # run tests!
+#      - run: gradle test
