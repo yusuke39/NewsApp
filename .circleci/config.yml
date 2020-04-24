@@ -10,9 +10,9 @@ jobs:
       - run:
           name: GCP Authenticate
           command: |
-            gcloud auth activate-service-account --key-file ./newsapp-key.json
-            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+#            gcloud auth activate-service-account --key-file ./newsapp-key.json
+#            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+#            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
 #      - run:
 #          name: Build image
 #          command:
