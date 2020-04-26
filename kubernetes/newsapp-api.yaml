@@ -1,0 +1,61 @@
+apiVersion: v1                # API version
+kind: Service                 # Type of the kubernetes resource
+metadata:
+  name: newsapp               # Name of the kubernetes resource
+  labels:                     # Labels that will be applied to this resource
+    app: newsapp
+spec:
+  selector:
+    app: newsapp               # The service exposes Pods with label `app=polling-app-server`
+  ports:                      # Forward incoming connections on port 8080 to the target port 8080
+    - name: http
+      port: 8080
+      targetPort: 8080
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: newsapp
+  labels:
+    app: newsapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: newsapp
+  template:
+    metadata:
+      labels:
+        app: newsapp
+    spec:
+      containers:
+        - name: newsapp
+          image: asia.gcr.io/newsapp-273606/newsappjdk@sha256:c0536416ec74a0065162d403cc92a7595608b71105c6cdc3cef65458469914eb
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: DB_URL
+              value: "jdbc:mysql://mysql-master-0:3306/newsapp"
+
+
+
+
+
+
+
+
+
+#            - name: SPRING_PROFILES_ACTIVE
+#              value: "prd"
+#            - name: PIC_DIR
+#              value: "/opt/picDir"
+#          volumeMounts:
+#            - mountPath: "/opt/picDir"
+#              name: apserver-pvc
+#      volumes:
+#        - name: apserver-pvc
+#          persistentVolumeClaim:
+#            claimName: sbdemo-apserver-pvc

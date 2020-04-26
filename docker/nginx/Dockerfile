@@ -11,26 +11,10 @@ RUN entrykit --symlink
 
 #conf.dのデフォルトファイルを全削除して各種設定ファイルをコピー
 RUN rm /etc/nginx/conf.d/*
-COPY ./docker/nginx/conf.d/nginx.conf.tmpl /etc/nginx/
-COPY ./docker/nginx/conf.d/ /etc/nginx/conf.d/
+COPY ./conf.d/nginx.conf.tmpl /etc/nginx/
+COPY ./conf.d/ /etc/nginx/conf.d/
 
 #entrykitでテンプレートから設定ファイルを生成
-ENTRYPOINT [ \
- "render", \
-    "/etc/nginx/nginx.conf", \
-    "--", \
- "render", \
-    "/etc/nginx/conf.d/upstream.conf", \
-    "--", \
- "render", \
-    "/etc/nginx/conf.d/public.conf", \
-    "--" \
-]
+ENTRYPOINT ["render", "/etc/nginx/nginx.conf", "--", "render", "/etc/nginx/conf.d/upstream.conf", "--", "render", "/etc/nginx/conf.d/public.conf", "--" ]
 
 CMD ["nginx", "-g", "daemon off;"]
-
-# FROM nginx:1.17.9
-#
-# ADD ./conf/nginx.conf /etc/nginx/conf.d/nginx.conf
-#
-# ENTRYPOINT ["nginx", "-g", "daemon off;"]
