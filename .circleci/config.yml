@@ -10,7 +10,8 @@ jobs:
       - run:
           name: GCP Authenticate
           command: |
-#            echo -E $GCP_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
+            pwd
+#           echo -E $GCP_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
 #      - run:
 #          name: Build image
 #          command:
