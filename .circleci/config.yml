@@ -7,13 +7,11 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-#      - run:
-#          name: GCP Authenticate
-#          command: |
-#            echo $GCLOUD_SERVICE_KEY | base64 --decode --ignore-garbage > ${HOME}/gcloud-service-key.json
-#            gcloud auth activate-service-account --key-file ${GCLOUD_SERVICE_KEY}
-#            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-#            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+      - run:
+          name: GCP Authenticate
+          command: |
+            pwd
+#           echo -E $GCP_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
 #      - run:
 #          name: Build image
 #          command:
