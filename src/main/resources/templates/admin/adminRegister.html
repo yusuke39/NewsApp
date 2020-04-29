@@ -48,26 +48,26 @@
 </nav>
 <br>
 <br>
-<form>
+<form method="post" th:action="@{/admin/registerAdmin}">
     <div class="form-group" style="width: 500px; margin: auto;">
         <label for="exampleInputEmail1">管理者名</label>
-        <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="ユーザー名">
+        <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="ユーザー名" name="name">
     </div>
     <br>
     <div class="form-group" style="width: 500px; margin: auto;">
         <label for="exampleInputEmail1">メールアドレス</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="メールアドレス">
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="メールアドレス" name="email">
         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
     <br>
     <div class="form-group" style="width: 500px; margin: auto;">
         <label for="exampleInputPassword1">パスワード</label>
-        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="パスワード">
+        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="パスワード" name="password">
     </div>
     <br>
     <div class="form-group" style="width: 500px; margin: auto;">
         <label for="exampleInputPassword1">パスワード確認用</label>
-        <input type="text" class="form-control" placeholder="パスワード確認用">
+        <input type="password" class="form-control" placeholder="パスワード確認用" name="confirmPassword">
     </div>
     <br>
     <br>

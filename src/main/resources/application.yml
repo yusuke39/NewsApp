@@ -1,22 +1,25 @@
 spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql:3306/NewsApp
+    url: jdbc:mysql://localhost:3306/NewsApp
     username: root
     password: password
 
-    spring:
-      profiles: docker
-      datasource:
-        driverClassName: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://dbserver/NewsApp
-        username: root
-        password: password
-      jpa:
-        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-        show-sql: true
-        hibernate:
-          ddl-auto: update
-      data:
-        rest:
-          base-path: /api
+#    spring:
+#      profiles: docker
+#      datasource:
+#        driverClassName: com.mysql.cj.jdbc.Driver
+#        url: jdbc:mysql://dbserver/NewsApp
+#        username: root
+#        password: password
+#      jpa:
+#        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+#        show-sql: true
+#        hibernate:
+#          ddl-auto: update
+#      data:
+#        rest:
+#          base-path: /api
+
+#mybatis:
+#  mapper-locations: classpath*:/com/example/demo/mapper
