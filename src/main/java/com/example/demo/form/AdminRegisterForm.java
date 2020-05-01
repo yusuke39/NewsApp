@@ -28,8 +28,7 @@ public class AdminRegisterForm {
         this.confirmPassword = confirmPassword;
     }
 
-    public AdminRegisterForm() {
-    }
+
 
     public String getName() {
         return name;
