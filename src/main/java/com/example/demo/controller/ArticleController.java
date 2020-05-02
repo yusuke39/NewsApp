@@ -64,10 +64,6 @@ public class ArticleController {
             }
         }
 
-        /*この管理者が登録した記事を検索し、全て取得する*/
-        List<Article> articleList = articleService.findArticlesByAdminId(12);
-        System.out.println(articleList);
-//        model.addAttribute("articleList", articleList);
 
         return "redirect:/admin/adminTop";
     }

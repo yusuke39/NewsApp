@@ -21,6 +21,7 @@
 
     <resultMap id="ArticleResult" type="com.example.demo.domain.Article">
         <id column="id" property="a_id" />
+        <result property="id" column="ar_id"/>
         <result property="title" column="ar_title"/>
         <result property="image" column="ar_image"/>
         <result property="content" column="ar_content"/>
