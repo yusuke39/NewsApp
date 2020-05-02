@@ -14,8 +14,10 @@ public class Article {
     private int genre_id;
     /**管理者ID*/
     private int admin_id;
-
-
+    /**管理者ドメイン*/
+    private Admin admin;
+    /**ジャンルドメイン*/
+    private Genre genre;
 
     @Override
     public String toString() {
@@ -26,21 +28,23 @@ public class Article {
                 ", content='" + content + '\'' +
                 ", genre_id=" + genre_id +
                 ", admin_id=" + admin_id +
+                ", admin=" + admin +
+                ", genre=" + genre +
                 '}';
     }
 
-    public Article(int id, String title, String image, String content, int genre_id, int admin_id) {
+    public Article(int id, String title, String image, String content, int genre_id, int admin_id, Admin admin, Genre genre) {
         this.id = id;
         this.title = title;
         this.image = image;
         this.content = content;
         this.genre_id = genre_id;
         this.admin_id = admin_id;
+        this.admin = admin;
+        this.genre = genre;
     }
 
-
     public Article() {
-
     }
 
     public int getId() {
@@ -89,5 +93,21 @@ public class Article {
 
     public void setAdmin_id(int admin_id) {
         this.admin_id = admin_id;
+    }
+
+    public Admin getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
+    }
+
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
     }
 }

@@ -1,9 +1,12 @@
 package com.example.demo.controller;
 
+import com.example.demo.domain.Article;
 import com.example.demo.form.ArticleRegisterForm;
 import com.example.demo.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.ServletException;
@@ -11,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
+import java.util.List;
 
 
 @Controller
@@ -37,7 +41,9 @@ public class ArticleController {
      *
      */
     @RequestMapping("/registerArticle")
-    public String registerArticle(ArticleRegisterForm articleRegisterForm, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    public String registerArticle(ArticleRegisterForm articleRegisterForm,
+                                  HttpServletRequest req, HttpServletResponse resp,
+                                  Model model) throws IOException, ServletException {
 
 
         /*ファイルをCloudStorageへアップロードする*/
@@ -58,11 +64,13 @@ public class ArticleController {
             }
         }
 
-
-
-
+        /*この管理者が登録した記事を検索し、全て取得する*/
+        List<Article> articleList = articleService.findArticlesByAdminId(12);
+        System.out.println(articleList);
+//        model.addAttribute("articleList", articleList);
 
         return "redirect:/admin/adminTop";
     }
+
 
 }

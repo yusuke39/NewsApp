@@ -13,6 +13,7 @@ import javax.servlet.http.Part;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 
 @Service
@@ -72,4 +73,16 @@ public class ArticleService {
         return blobInfo.getMediaLink();
     }
 
+
+    /**
+     * 記事を管理者IDで取得する.
+     * @param adminId
+     * @return
+     */
+    public List<Article> findArticlesByAdminId(int adminId){
+
+        List<Article> articleList = articleMapper.findArticlesByAdminId(12);
+
+        return articleList;
+    }
 }
