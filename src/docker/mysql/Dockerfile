@@ -1,4 +1,4 @@
-FROM mysql:5.7
+FROM mysql:8.0
 
 #パッケージアップデートとwgetインストール
 RUN apt-get update
@@ -14,10 +14,18 @@ RUN entrykit --symlink
 #スクリプトと各種設定ファイルのコピー
 COPY ./add-server-id.sh /usr/local/bin/
 COPY ./mysql.conf.d/mysqld.cnf /etc/mysql/mysql.conf.d/
-COPY ./conf.d/mysql.cnf /etc/mysql/conf.d/
+VOLUME ./conf.d/mysql.cnf /etc/mysql/conf.d/
 COPY ./prepare.sh /etc/mysql/conf.d/
 COPY ./init-data.sh /usr/local/bin/
 COPY ./sql /sql
+
+
+RUN apt-get update \
+    && apt-get install -y locales \
+    && locale-gen ja_JP.UTF-8 \
+    && echo "export LANG=ja_JP.utf8" >> ~/.bashrc \
+    && echo "export LANGUAGE=ja_JP:en" >> ~/.bashrc
+
 
 #スクリプトとmysqlの実行
 ENTRYPOINT ["prehook", "/usr/local/bin/add-server-id.sh", "--", "docker-entrypoint.sh"]

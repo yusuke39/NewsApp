@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.ArticleMapper">
+
+    <!--記事を登録する-->
+    <insert id="insertArticle" parameterType="com.example.demo.domain.Article" useGeneratedKeys="true" keyProperty="id">
+        insert into articles (title,image,content,genre_id,admin_id)
+        values (#{title},#{image},#{content},#{genre_id},#{admin_id});
+    </insert>
+
+    <!--管理者が登録した記事を管理者IDで検索する-->
+    <select id="findArticlesByAdminId" resultMap="ArticleResult">
+        select ar.id ar_id, ar.title ar_title, ar.image ar_image, ar.content ar_content, ar.genre_id ar_genre_id, ar.admin_id ar_admin_id,
+        a.id a_id, a.name a_name, a.email a_email, g.id g_id, g.genre_name g_genre_name
+        from articles ar
+        left outer join admins a on a.id = ar.admin_id
+        left outer join genre g on g.id = ar.genre_id
+        where ar.admin_id = 12;
+    </select>
+
+    <resultMap id="ArticleResult" type="com.example.demo.domain.Article">
+        <id column="id" property="a_id" />
+        <result property="id" column="ar_id"/>
+        <result property="title" column="ar_title"/>
+        <result property="image" column="ar_image"/>
+        <result property="content" column="ar_content"/>
+        <result property="genre_id" column="ar_genre_id"/>
+        <result property="admin_id" column="ar_admin_id"/>
+        <association property="admin" javaType="com.example.demo.domain.Admin">
+            <result property="id" column="a_id"/>
+            <result property="name" column="a_name"/>
+            <result property="email" column="a_email"/>
+        </association>
+        <association property="genre" javaType="com.example.demo.domain.Genre">
+            <result property="id" column="g_id"/>
+            <result property="genre_name" column="g_genre_name"/>
+        </association>
+    </resultMap>
+
+
+
+</mapper>

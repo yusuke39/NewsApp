@@ -34,10 +34,10 @@ spec:
       terminationGracePeriodSeconds: 60
       containers:
         - name: mysql
-          image: asia.gcr.io/newsapp-273606/newsappmysql@sha256:14ed1f04dd3b366100ae927380b67858aa29b35728fd0106192f6392fd35016a
+          image: asia.gcr.io/newsapp-273606/newsappmysql@sha256:37e939211f422a01d7b4da7d746d4616311715ecfeb5e1c0348fea1f6870f16c
           imagePullPolicy: Always
-          args:
-          - "--ignore-db-dir=lost+found"
+#          args:
+#          - "--ignore-db-dir=lost+found"
           ports:
           - containerPort: 3306
           env:

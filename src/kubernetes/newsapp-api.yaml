@@ -31,31 +31,11 @@ spec:
     spec:
       containers:
         - name: newsapp
-          image: asia.gcr.io/newsapp-273606/newsappjdk@sha256:c0536416ec74a0065162d403cc92a7595608b71105c6cdc3cef65458469914eb
+          image: asia.gcr.io/newsapp-273606/newsappjdk@sha256:14aadb06d61bdfc8f85a3abf72e06d2da2f3826c6059be4c6ff7950785a50f9d
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
               containerPort: 8080
           env:
             - name: DB_URL
-              value: "jdbc:mysql://mysql-master-0:3306/newsapp"
-
-
-
-
-
-
-
-
-
-#            - name: SPRING_PROFILES_ACTIVE
-#              value: "prd"
-#            - name: PIC_DIR
-#              value: "/opt/picDir"
-#          volumeMounts:
-#            - mountPath: "/opt/picDir"
-#              name: apserver-pvc
-#      volumes:
-#        - name: apserver-pvc
-#          persistentVolumeClaim:
-#            claimName: sbdemo-apserver-pvc
+              value: "jdbc:mysql://mysql-master:3306/newsapp"
