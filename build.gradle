@@ -9,14 +9,16 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
 
-
-
 repositories {
 	mavenCentral()
+	google()
 }
+
+
 
 dependencies {
 //	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'com.google.cloud.tools:appengine-gradle-plugin:2.2.0'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.2'
@@ -25,10 +27,18 @@ dependencies {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 //	testImplementation 'org.springframework.security:spring-security-test'
+	compile 'com.google.appengine:appengine-api-1.0-sdk:+'
+	compile group: 'com.google.cloud', name: 'google-cloud-storage', version: '1.107.0'
 	compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.1")
 	compile("mysql:mysql-connector-java")
 }
 
+
 test {
 	useJUnitPlatform()
+}
+
+bootRun {
+	// foobar プロファイルを指定する
+	jvmArgs = ['-Dspring.profiles.active=production']
 }

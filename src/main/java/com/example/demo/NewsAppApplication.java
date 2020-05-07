@@ -11,9 +11,5 @@ public class NewsAppApplication {
 		SpringApplication.run(NewsAppApplication.class, args);
 	}
 
-//	@Bean
-//	public PasswordEncoder passwordEncoder() {
-//		return new BCryptPasswordEncoder();
-//	}
 
 }
