@@ -39,6 +39,5 @@ test {
 }
 
 bootRun {
-	// foobar プロファイルを指定する
 	jvmArgs = ['-Dspring.profiles.active=production']
 }

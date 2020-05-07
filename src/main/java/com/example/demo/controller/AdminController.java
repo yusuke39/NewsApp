@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.domain.Article;
 import com.example.demo.form.AdminRegisterForm;
+import com.example.demo.form.AdminRegisterGenreForm;
 import com.example.demo.service.AdminService;
 import com.example.demo.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -74,6 +74,29 @@ public class AdminController {
     public String registerAdmin(AdminRegisterForm adminRegisterForm){
 
         adminService.insertAdmin(adminRegisterForm);
+
+        return "redirect:/admin/adminTop";
+    }
+
+    /**
+     * ジャンル登録画面表示.
+     * @return
+     */
+    @RequestMapping("/adminRegisterGenre")
+    public String adminRegisterGenre(){
+        return "/admin/adminGenre";
+    }
+
+
+    /**
+     * ジャンルを登録する.
+     * @param adminRegisterGenreFrom
+     * @return
+     */
+    @RequestMapping("/registerGenre")
+    public String registerGenre(AdminRegisterGenreForm adminRegisterGenreFrom){
+
+        adminService.insertGenre(adminRegisterGenreFrom);
 
         return "redirect:/admin/adminTop";
     }

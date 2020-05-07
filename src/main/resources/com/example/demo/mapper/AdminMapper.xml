@@ -9,4 +9,10 @@
         values (#{name},#{email},#{password});
     </insert>
 
+    <!-- ジャンルを登録する -->
+    <insert id="insertGenre" parameterType="com.example.demo.domain.Genre">
+        insert into genre (genre_name)
+        values (#{genre_name});
+    </insert>
+
 </mapper>
