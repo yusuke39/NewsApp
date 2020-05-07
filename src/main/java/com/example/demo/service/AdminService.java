@@ -1,7 +1,9 @@
 package com.example.demo.service;
 
 import com.example.demo.domain.Admin;
+import com.example.demo.domain.Genre;
 import com.example.demo.form.AdminRegisterForm;
+import com.example.demo.form.AdminRegisterGenreForm;
 import com.example.demo.mapper.AdminMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,18 @@ public class AdminService {
         admin.setPassword(adminRegisterForm.getPassword());
 
         adminMapper.insertAdmin(admin);
+    }
 
+
+    /**
+     * ジャンルを登録する.
+     * @param adminRegisterGenreForm
+     */
+    public void insertGenre(AdminRegisterGenreForm adminRegisterGenreForm){
+
+        Genre genre = new Genre();
+        genre.setGenre_name(adminRegisterGenreForm.getGenreName());
+
+        adminMapper.insertGenre(genre);
     }
 }
