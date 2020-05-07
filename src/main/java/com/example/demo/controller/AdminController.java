@@ -9,17 +9,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
 
+
     @Autowired
     AdminService adminService;
 
     @Autowired
     ArticleService articleService;
+
+
 
     /**
      * ログイン画面の表示をする.

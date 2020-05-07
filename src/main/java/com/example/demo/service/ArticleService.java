@@ -3,10 +3,7 @@ package com.example.demo.service;
 import com.example.demo.domain.Article;
 import com.example.demo.form.ArticleRegisterForm;
 import com.example.demo.mapper.ArticleMapper;
-import com.google.cloud.storage.Acl;
-import com.google.cloud.storage.BlobInfo;
-import com.google.cloud.storage.Storage;
-import com.google.cloud.storage.StorageOptions;
+import com.google.cloud.storage.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.servlet.http.Part;
@@ -23,15 +20,6 @@ public class ArticleService {
     @Autowired
     ArticleMapper articleMapper;
 
-    /**
-     * CloudStorage認証
-     */
-    private static Storage storage = null;
-
-    //start init
-    static {
-        storage = StorageOptions.getDefaultInstance().getService();
-    }
 
 
     /**
@@ -49,6 +37,16 @@ public class ArticleService {
 
         articleMapper.insertArticle(article);
 
+    }
+
+    /**
+     * CloudStorage認証@local
+     */
+    private static Storage storage = null;
+
+    //start init
+    static {
+        storage = StorageOptions.getDefaultInstance().getService();
     }
 
 

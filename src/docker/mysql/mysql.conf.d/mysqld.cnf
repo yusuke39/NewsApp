@@ -13,4 +13,3 @@ relay-log=mysqld-relay-bin
 relay-log-index=mysqld-relay-bin
 
 log-bin=/var/log/mysql/mysql-bin.log
-
