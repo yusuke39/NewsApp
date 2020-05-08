@@ -15,4 +15,9 @@
         values (#{genre_name});
     </insert>
 
+    <!-- 管理者をメールアドレスで１件検索-->
+    <select id="findAdmin" resultType="com.example.demo.domain.Admin" >
+        select id,name,email,password from admins where email = #{email};
+    </select>
+
 </mapper>

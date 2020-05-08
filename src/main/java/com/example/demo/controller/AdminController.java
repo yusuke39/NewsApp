@@ -43,7 +43,7 @@ public class AdminController {
      * @return 管理者新規登録画面
      */
     @RequestMapping("/adminRegisterPage")
-    public String register(){
+    public String adminRegisterPage(){
 
         return "/admin/adminRegister";
     }
@@ -72,6 +72,10 @@ public class AdminController {
      */
     @RequestMapping("/registerAdmin")
     public String registerAdmin(AdminRegisterForm adminRegisterForm){
+
+        if(!adminRegisterForm.getConfirmPassword().equals(adminRegisterForm.getPassword())){
+            return "/admin/adminTop";
+        }
 
         adminService.insertAdmin(adminRegisterForm);
 

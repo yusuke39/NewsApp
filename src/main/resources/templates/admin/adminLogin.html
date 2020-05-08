@@ -25,16 +25,16 @@
 </nav>
 <br>
 <br>
-<form>
+<form method="post" th:action="@{/admin/login}">
     <div class="form-group" style="width: 500px; margin: auto;">
         <label for="exampleInputEmail1">メールアドレス</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="email">
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="email" name="email">
         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
     <br>
     <div class="form-group" style="width: 500px; margin: auto;">
         <label for="exampleInputPassword1">パスワード</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password">
     </div>
     <br>
     <br>

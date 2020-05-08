@@ -7,14 +7,14 @@ spring:
     username: root
     password: password
 
----
-spring:
-  profiles:
-    active: production
-  datasource:
-    driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql-master:3306/newsapp
-    username: root
-    password: password
+#---
+#spring:
+#  profiles:
+#    active: production
+#  datasource:
+#    driverClassName: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://mysql-master:3306/newsapp
+#    username: root
+#    password: password
 
 
