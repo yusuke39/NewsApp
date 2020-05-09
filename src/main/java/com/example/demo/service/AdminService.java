@@ -6,6 +6,7 @@ import com.example.demo.form.AdminRegisterForm;
 import com.example.demo.form.AdminRegisterGenreForm;
 import com.example.demo.mapper.AdminMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,6 +14,9 @@ public class AdminService {
 
     @Autowired
     AdminMapper adminMapper;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
 
     /**
@@ -24,7 +28,7 @@ public class AdminService {
         Admin admin = new Admin();
         admin.setName(adminRegisterForm.getName());
         admin.setEmail(adminRegisterForm.getEmail());
-        admin.setPassword(adminRegisterForm.getPassword());
+        admin.setPassword(passwordEncoder.encode(adminRegisterForm.getPassword()));
 
         adminMapper.insertAdmin(admin);
     }

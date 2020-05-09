@@ -3,9 +3,11 @@ package com.example.demo.controller;
 import com.example.demo.domain.Article;
 import com.example.demo.form.AdminRegisterForm;
 import com.example.demo.form.AdminRegisterGenreForm;
+import com.example.demo.security.LoginAdmin;
 import com.example.demo.service.AdminService;
 import com.example.demo.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,7 +45,7 @@ public class AdminController {
      * @return 管理者新規登録画面
      */
     @RequestMapping("/adminRegisterPage")
-    public String register(){
+    public String adminRegisterPage(){
 
         return "/admin/adminRegister";
     }
@@ -54,7 +56,10 @@ public class AdminController {
      * @return 管理者TOP画面の表示.
      */
     @RequestMapping("/adminTop")
-    public String adminTop(Model model){
+    public String adminTop(Model model, @AuthenticationPrincipal LoginAdmin loginAdmin){
+
+        /*ログインしたユーザーの名前を渡す*/
+        model.addAttribute("userName",loginAdmin.getAdmin().getName());
 
         /*この管理者が登録した記事を検索し、全て取得する*/
         List<Article> articleList = articleService.findArticlesByAdminId(12);
@@ -72,6 +77,10 @@ public class AdminController {
      */
     @RequestMapping("/registerAdmin")
     public String registerAdmin(AdminRegisterForm adminRegisterForm){
+
+        if(!adminRegisterForm.getConfirmPassword().equals(adminRegisterForm.getPassword())){
+            return "/admin/adminTop";
+        }
 
         adminService.insertAdmin(adminRegisterForm);
 

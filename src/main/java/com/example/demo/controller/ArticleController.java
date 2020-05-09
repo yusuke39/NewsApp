@@ -60,9 +60,13 @@ public class ArticleController {
                 }
             }
         }
-
-
         return "redirect:/admin/adminTop";
+    }
+
+
+    @RequestMapping("/editArticlePage")
+    public String editArticlePage(){
+        return "/admin/editArticle";
     }
 
 
