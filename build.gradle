@@ -38,6 +38,6 @@ test {
 	useJUnitPlatform()
 }
 
-//bootRun {
-//	jvmArgs = ['-Dspring.profiles.active=production']
-//}
+bootRun {
+	jvmArgs = ['-Dspring.profiles.active=production']
+}
