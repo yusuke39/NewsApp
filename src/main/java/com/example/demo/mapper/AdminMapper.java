@@ -15,7 +15,7 @@ public interface AdminMapper {
      * @param admin
      * @return
      */
-    int  insertAdmin(Admin admin);
+    void  insertAdmin(Admin admin);
 
 
     /**

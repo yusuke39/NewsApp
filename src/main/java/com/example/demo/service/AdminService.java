@@ -1,6 +1,5 @@
 package com.example.demo.service;
 
-import com.example.demo.NewsAppApplication;
 import com.example.demo.domain.Admin;
 import com.example.demo.domain.Genre;
 import com.example.demo.form.AdminRegisterForm;
