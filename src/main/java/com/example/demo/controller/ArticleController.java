@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.domain.Genre;
 import com.example.demo.form.ArticleRegisterForm;
 import com.example.demo.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
+import java.util.List;
 
 
 @Controller
@@ -27,7 +29,12 @@ public class ArticleController {
      * @return 記事投稿画面
      */
     @RequestMapping("/createArticle")
-    public String createArticle(){
+    public String createArticle(Model model){
+
+        //ジャンル名をプルダウンに表示させる.
+        List<Genre> genreList = articleService.findAllGenre();
+        model.addAttribute("genreList", genreList);
+
         return "admin/createArticle";
     }
 
@@ -64,10 +71,15 @@ public class ArticleController {
     }
 
 
+    /**
+     * 記事編集ページを表示する.
+     * @return
+     */
     @RequestMapping("/editArticlePage")
     public String editArticlePage(){
         return "/admin/editArticle";
     }
+
 
 
 }

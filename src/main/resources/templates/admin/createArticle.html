@@ -44,10 +44,9 @@
     <br>
     <br>
     <select class="custom-select" name="genre_id">
-        <option value="1">エンタメ</option>
-        <option value="2">おもしろ</option>
-        <option value="3">スポーツ</option>
-        <option value="4">海外</option>
+        <div th:each="genre : ${genreList}">
+            <option th:value="${genre.id}" th:text="${genre.genre_name}">エンタメ</option>
+        </div>
     </select>
     <br>
     <br>

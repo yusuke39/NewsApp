@@ -2,6 +2,7 @@ package com.example.demo.mapper;
 
 import com.example.demo.domain.Admin;
 import com.example.demo.domain.Article;
+import com.example.demo.domain.Genre;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -22,5 +23,12 @@ public interface ArticleMapper {
      * @return
      */
     List<Article> findArticlesByAdminId(int adminId);
+
+
+    /**
+     * ジャンルを全権取得する.
+     * @return
+     */
+    List<Genre> findAllGenre ();
 
 }

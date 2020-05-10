@@ -1,11 +1,16 @@
 package com.example.demo.service;
 
 import com.example.demo.domain.Article;
+import com.example.demo.domain.Genre;
 import com.example.demo.form.ArticleRegisterForm;
 import com.example.demo.mapper.ArticleMapper;
+import com.example.demo.security.LoginAdmin;
 import com.google.cloud.storage.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,6 +25,9 @@ public class ArticleService {
     @Autowired
     ArticleMapper articleMapper;
 
+    @Autowired
+    HttpSession session;
+
 
 
     /**
@@ -28,12 +36,15 @@ public class ArticleService {
      */
     public void registerArticle(ArticleRegisterForm articleRegisterForm, String imageUrl){
 
+        int adminId = (int) session.getAttribute("adminId");
+
+
         Article article = new Article();
         article.setTitle(articleRegisterForm.getTitle());
         article.setImage(imageUrl);
         article.setContent(articleRegisterForm.getContent());
         article.setGenre_id(articleRegisterForm.getGenre_id());
-        article.setAdmin_id(12);
+        article.setAdmin_id(adminId);
 
         articleMapper.insertArticle(article);
 
@@ -79,8 +90,20 @@ public class ArticleService {
      */
     public List<Article> findArticlesByAdminId(int adminId){
 
-        List<Article> articleList = articleMapper.findArticlesByAdminId(12);
+        List<Article> articleList = articleMapper.findArticlesByAdminId(adminId);
 
         return articleList;
+    }
+
+
+    /**
+     * ジャンル名を全件検索する.
+     * @return
+     */
+    public List<Genre> findAllGenre (){
+
+        List<Genre> genreList = articleMapper.findAllGenre();
+
+        return genreList;
     }
 }
