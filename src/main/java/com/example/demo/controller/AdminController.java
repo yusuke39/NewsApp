@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -24,6 +25,9 @@ public class AdminController {
 
     @Autowired
     ArticleService articleService;
+
+    @Autowired
+    HttpSession session;
 
 
 
@@ -59,10 +63,13 @@ public class AdminController {
     public String adminTop(Model model, @AuthenticationPrincipal LoginAdmin loginAdmin){
 
         /*ログインしたユーザーの名前を渡す*/
-        model.addAttribute("userName",loginAdmin.getAdmin().getName());
+        model.addAttribute("adminName",loginAdmin.getAdmin().getName());
+
+        /*管理者IDを取得してセッションに入れる*/
+        session.setAttribute("adminId",loginAdmin.getAdmin().getId());
 
         /*この管理者が登録した記事を検索し、全て取得する*/
-        List<Article> articleList = articleService.findArticlesByAdminId(12);
+        List<Article> articleList = articleService.findArticlesByAdminId(loginAdmin.getAdmin().getId());
         model.addAttribute("articleList", articleList);
 
         return "/admin/adminTop";

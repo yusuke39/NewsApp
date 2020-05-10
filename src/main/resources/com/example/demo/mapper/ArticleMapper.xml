@@ -9,6 +9,11 @@
         values (#{title},#{image},#{content},#{genre_id},#{admin_id});
     </insert>
 
+
+    <select id="findAllGenre" resultType="com.example.demo.domain.Genre">
+        select id, genre_name from genre;
+    </select>
+
     <!--管理者が登録した記事を管理者IDで検索する-->
     <select id="findArticlesByAdminId" resultMap="ArticleResult">
         select ar.id ar_id, ar.title ar_title, ar.image ar_image, ar.content ar_content, ar.genre_id ar_genre_id, ar.admin_id ar_admin_id,
@@ -16,7 +21,7 @@
         from articles ar
         left outer join admins a on a.id = ar.admin_id
         left outer join genre g on g.id = ar.genre_id
-        where ar.admin_id = 12;
+        where ar.admin_id = #{admin_id};
     </select>
 
     <resultMap id="ArticleResult" type="com.example.demo.domain.Article">
