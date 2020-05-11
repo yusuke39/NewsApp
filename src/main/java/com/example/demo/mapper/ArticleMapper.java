@@ -31,4 +31,11 @@ public interface ArticleMapper {
      */
     List<Genre> findAllGenre ();
 
+
+    /**
+     * 記事を管理者IDと記事IDで検索する.
+     * @return
+     */
+    Article finsArticleByAdminIdArticleId(int adminId, int articleId);
+
 }
