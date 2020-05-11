@@ -4,10 +4,8 @@ import com.example.demo.domain.Article;
 import com.example.demo.domain.Genre;
 import com.example.demo.form.ArticleRegisterForm;
 import com.example.demo.mapper.ArticleMapper;
-import com.example.demo.security.LoginAdmin;
 import com.google.cloud.storage.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -105,5 +103,19 @@ public class ArticleService {
         List<Genre> genreList = articleMapper.findAllGenre();
 
         return genreList;
+    }
+
+
+    /**
+     * 記事を検索して、Adminドメインを返す.
+     * @param adminId
+     * @param articleId
+     * @return
+     */
+    public Article finsArticleByAdminIdArticleId(int adminId, int articleId){
+
+        Article article = articleMapper.finsArticleByAdminIdArticleId(adminId, articleId);
+
+        return article;
     }
 }

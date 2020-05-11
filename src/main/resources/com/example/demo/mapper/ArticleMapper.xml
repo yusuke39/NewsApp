@@ -24,6 +24,13 @@
         where ar.admin_id = #{admin_id};
     </select>
 
+    <select id="finsArticleByAdminIdArticleId" resultType="com.example.demo.domain.Article">
+        select id, title, image , content , genre_id , admin_id
+        from articles
+        where admin_id = #{adminId}
+        and id = #{articleId};
+    </select>
+
     <resultMap id="ArticleResult" type="com.example.demo.domain.Article">
         <id column="id" property="a_id" />
         <result property="id" column="ar_id"/>

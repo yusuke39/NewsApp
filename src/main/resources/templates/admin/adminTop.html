@@ -10,14 +10,14 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </head>
 <body>
-<div th:replace="adminHeader::adminHeader"></div>
+<div th:replace="/common/adminHeader::adminHeader"></div>
 <br>
 <br>
 <div th:each="article : ${articleList}">
-    <a href="#" class="text-secondary" >
+    <a th:href="@{/article/articleDetail} + '?articleId=' + ${article.id}" class="text-secondary" >
         <div class="shadow p-3 mb-5 bg-white rounded mx-auto"  style="width: 700px; height: 150px; margin: auto;">
             <img th:src="${article.image}" alt="写真" class="img-thumbnail pull-left float-left" style="width: 150px; height: 100px;">
-            <pre class="text-center" th:text="${article.content}">
+            <pre class="text-center" th:text="${article.title}">
             </pre>
             <a href="#" class="float-right" alt="削除" style="margin-left: 20px; margin-top: 40px;" >
                 <img th:src="@{/images/delete.png}" style="width: 25px; height: 25px;">
