@@ -32,10 +32,7 @@ public class ArticleService {
      * 記事をDBへ登録する.
      * @param articleRegisterForm
      */
-    public void registerArticle(ArticleRegisterForm articleRegisterForm, String imageUrl){
-
-        int adminId = (int) session.getAttribute("adminId");
-
+    public void registerArticle(ArticleRegisterForm articleRegisterForm, int adminId, String imageUrl){
 
         Article article = new Article();
         article.setTitle(articleRegisterForm.getTitle());

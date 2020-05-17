@@ -7,6 +7,7 @@ import com.example.demo.security.LoginAdmin;
 import com.example.demo.service.AdminService;
 import com.example.demo.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +20,6 @@ import java.util.List;
 @RequestMapping("/admin")
 public class AdminController {
 
-
     @Autowired
     AdminService adminService;
 
@@ -28,6 +28,18 @@ public class AdminController {
 
     @Autowired
     HttpSession session;
+
+    @Autowired
+    private StringRedisTemplate redisTemplate;
+
+//
+//    private final String instanceName;
+//    private final SessionRedis sessionRedis;
+//
+//    public AdminController(String instanceName1, SessionRedis sessionRedis1){
+//        this.instanceName = instanceName1;
+//        this.sessionRedis = sessionRedis1;
+//    }
 
 
 
@@ -62,8 +74,23 @@ public class AdminController {
     @RequestMapping("/adminTop")
     public String adminTop(Model model, @AuthenticationPrincipal LoginAdmin loginAdmin){
 
+//        SessionRedis sessionRedis = new SessionRedis();
+//        sessionRedis.setSessionId(sessionRedis.getSessionId());
+//        sessionRedis.setName(loginAdmin.getAdmin().getEmail());
+//        session.setAttribute("user", sessionRedis);
+//
+//        System.out.println(sessionRedis);
+
+
+//        //ここでsessionIDを取得してredisに保存。
+//        //他のサーバーにアクセスしても、redisからsessionIDを読み取り、
+//        //session管理することで、sessionがきれずにログアウトまで全ての機能を使えるようにする
+//        String jsessionid = session.getId();
+//        redisTemplate.opsForValue().set("sessionID", jsessionid);
+
+
         /*ログインしたユーザーの名前を渡す*/
-        model.addAttribute("adminName",loginAdmin.getAdmin().getName());
+        session.setAttribute("adminName",loginAdmin.getAdmin().getName());
 
         /*管理者IDを取得してセッションに入れる*/
         session.setAttribute("adminId",loginAdmin.getAdmin().getId());
@@ -77,7 +104,7 @@ public class AdminController {
 
 
     /**
-     * 管理者登録後に管理者のTOPページへ繊維する.
+     * 管理者登録後に管理者のログインページへ繊維する.
      *
      * @param adminRegisterForm
      * @return /adminTOPへリダイレクト.
@@ -91,7 +118,7 @@ public class AdminController {
 
         adminService.insertAdmin(adminRegisterForm);
 
-        return "redirect:/admin/adminTop";
+        return "redirect:/admin/adminLogin";
     }
 
     /**

@@ -37,7 +37,10 @@ public class ArticleController {
      * @return 記事投稿画面
      */
     @RequestMapping("/createArticle")
-    public String createArticle(Model model){
+    public String createArticle(Model model,@AuthenticationPrincipal LoginAdmin loginAdmin){
+
+        int adminId = (int) session.getAttribute("adminId");
+        System.out.println(adminId);
 
         //ジャンル名をプルダウンに表示させる.
         List<Genre> genreList = articleService.findAllGenre();
@@ -58,6 +61,10 @@ public class ArticleController {
                                   Model model) throws IOException, ServletException {
 
 
+        int adminId = (int) session.getAttribute("adminId");
+        System.out.println(adminId);
+
+
         /*ファイルをCloudStorageへアップロードする*/
         Part filePart = req.getPart("imageFile");
 
@@ -71,7 +78,7 @@ public class ArticleController {
                 if(extension.equals(s)){
                     String imageUrl =  this.articleService.uploadFile(filePart, "artifacts.newsapp-273606.appspot.com");
                     /*記事を登録するサービスへ値を渡す*/
-                    articleService.registerArticle(articleRegisterForm, imageUrl);
+                    articleService.registerArticle(articleRegisterForm, adminId,imageUrl);
                 }
             }
         }

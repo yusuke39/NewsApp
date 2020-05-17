@@ -25,17 +25,15 @@
                     メニュー
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">新規管理者新規登録</a>
-                    <a class="dropdown-item" href="#">新規管理者編集</a>
                     <a class="dropdown-item" th:href="@{/article/createArticle}">記事新規登録</a>
                     <a class="dropdown-item" th:href="@{/article/editArticlePage}">記事編集</a>
                 </div>
             </li>
             <li class="nav-item">
-                <div class="nav-link" th:text="${adminName} + 'さん : ログイン中' "></div>
+                <div class="nav-link" th:text="${session.adminName} + 'さん : ログイン中' "></div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">ログアウト</a>
+                <a class="nav-link" th:href="@{/admin/logout}">ログアウト</a>
             </li>
         </ul>
     </div>

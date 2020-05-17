@@ -1,6 +1,8 @@
 package com.example.demo.domain;
 
-public class Admin {
+import java.io.Serializable;
+
+public class Admin implements Serializable {
 
     /**管理者ID*/
     private int id;
@@ -10,16 +12,11 @@ public class Admin {
     private String email;
     /**管理者パスワード*/
     private String password;
+//    /**有効なユーザーか判定する*/
+//    public boolean isEnabled;
+//
+//    public boolean isAdmin;
 
-    @Override
-    public String toString() {
-        return "Admin{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
 
     public Admin(int id, String name, String email, String password) {
         this.id = id;
@@ -31,32 +28,42 @@ public class Admin {
     public Admin() {
     }
 
+    @Override
+    public String toString() {
+        return "Admin{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
+
     public int getId() {
         return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public void setPassword(String password) {

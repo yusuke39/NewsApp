@@ -30,6 +30,6 @@ public interface AdminMapper {
      * @param email
      * @return
      */
-    List<Admin> findAdmin(String email);
+    Admin findAdmin(String email);
 
 }

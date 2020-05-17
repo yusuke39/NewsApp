@@ -5,7 +5,7 @@ metadata:
   labels:
     app: nginx
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
     app: nginx
   ports:
@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: asia.gcr.io/newsapp-273606/newsappnginx@sha256:6273cb9af2a4f7d3b19d50611df0603b1a0f3d02f5978e2a1e76bfce5a5a1668
+        image: asia.gcr.io/newsapp-273606/newsappnginx@sha256:0e23322e7b9e910f4e68ad7cbee6c9905bb47ca6324eadc4e93669b6c55d3cab
         imagePullPolicy: Always
         ports:
           - containerPort: 80
