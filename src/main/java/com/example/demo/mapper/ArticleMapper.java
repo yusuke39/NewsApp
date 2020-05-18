@@ -38,4 +38,10 @@ public interface ArticleMapper {
      */
     Article finsArticleByAdminIdArticleId(int adminId, int articleId);
 
+
+    /**
+     * 記事内容を更新する.
+     * @param article
+     */
+    void updateArticle(Article article);
 }

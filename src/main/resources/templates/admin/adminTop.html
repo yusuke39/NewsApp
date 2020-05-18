@@ -22,7 +22,7 @@
             <a href="#" class="float-right" alt="削除" style="margin-left: 20px; margin-top: 40px;" >
                 <img th:src="@{/images/delete.png}" style="width: 25px; height: 25px;">
             </a>
-            <a href="#" class="float-right" alt="削除" style=" margin-top: 40px;">
+            <a th:href="@{/article/editArticlePage} + '?articleId=' + ${article.id}" class="float-right" alt="編集" style=" margin-top: 40px;">
                 <img th:src="@{/images/edit.png}" style="width: 25px; height: 25px;">
             </a>
         </div>

@@ -12,6 +12,19 @@ public class ArticleRegisterForm {
     private String content;
     /**ジャンルID*/
     private Integer genre_id;
+    /**記事ID*/
+    private int articleId;
+
+    public ArticleRegisterForm(String title, MultipartFile imageFile, String content, Integer genre_id, int articleId) {
+        this.title = title;
+        this.imageFile = imageFile;
+        this.content = content;
+        this.genre_id = genre_id;
+        this.articleId = articleId;
+    }
+
+    public ArticleRegisterForm() {
+    }
 
     @Override
     public String toString() {
@@ -20,17 +33,8 @@ public class ArticleRegisterForm {
                 ", imageFile=" + imageFile +
                 ", content='" + content + '\'' +
                 ", genre_id=" + genre_id +
+                ", articleId=" + articleId +
                 '}';
-    }
-
-    public ArticleRegisterForm(String title, MultipartFile imageFile, String content, Integer genre_id) {
-        this.title = title;
-        this.imageFile = imageFile;
-        this.content = content;
-        this.genre_id = genre_id;
-    }
-
-    public ArticleRegisterForm() {
     }
 
     public String getTitle() {
@@ -63,5 +67,13 @@ public class ArticleRegisterForm {
 
     public void setGenre_id(Integer genre_id) {
         this.genre_id = genre_id;
+    }
+
+    public int getArticleId() {
+        return articleId;
+    }
+
+    public void setArticleId(int articleId) {
+        this.articleId = articleId;
     }
 }
