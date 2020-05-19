@@ -80,7 +80,7 @@ public class ArticleController {
 
         int adminId = (int) session.getAttribute("adminId");
 
-        Article article = articleService.finsArticleByAdminIdArticleId(adminId, articleId);
+        Article article = articleService.findArticleByAdminIdArticleId(adminId, articleId);
 
         model.addAttribute("article", article);
 
@@ -97,7 +97,7 @@ public class ArticleController {
 
         //記事内容を取得
         int adminId = (int) session.getAttribute("adminId");
-        Article article = articleService.finsArticleByAdminIdArticleId(adminId, articleId);
+        Article article = articleService.findArticleByAdminIdArticleId(adminId, articleId);
         model.addAttribute("article", article);
 
         session.setAttribute("image", article.getImage());

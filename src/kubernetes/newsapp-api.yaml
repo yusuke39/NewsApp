@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
         - name: newsapp
-          image: asia.gcr.io/newsapp-273606/newsappjdk@sha256:638eff85373b92245398dd1cf63a0b3ea44b39bd450770093e7b77dd9b7bb9ff
+          image: asia.gcr.io/newsapp-273606/newsappjdk@sha256:7c4ea40af40602e635ebb25363364168726e4d9ff7954131da1a630c51abe434
           imagePullPolicy: Always
           ports:
             - name: http

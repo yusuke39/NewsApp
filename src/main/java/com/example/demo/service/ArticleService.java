@@ -109,9 +109,9 @@ public class ArticleService {
      * @param articleId
      * @return
      */
-    public Article finsArticleByAdminIdArticleId(int adminId, int articleId){
+    public Article findArticleByAdminIdArticleId(int adminId, int articleId){
 
-        Article article = articleMapper.finsArticleByAdminIdArticleId(adminId, articleId);
+        Article article = articleMapper.findArticleByAdminIdArticleId(adminId, articleId);
 
         return article;
     }

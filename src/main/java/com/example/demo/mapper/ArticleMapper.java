@@ -36,7 +36,7 @@ public interface ArticleMapper {
      * 記事を管理者IDと記事IDで検索する.
      * @return
      */
-    Article finsArticleByAdminIdArticleId(int adminId, int articleId);
+    Article findArticleByAdminIdArticleId(int adminId, int articleId);
 
 
     /**
