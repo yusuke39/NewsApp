@@ -10,6 +10,7 @@
     </insert>
 
 
+    <!-- ジャンルを全権取得する-->
     <select id="findAllGenre" resultType="com.example.demo.domain.Genre">
         select id, genre_name from genre;
     </select>
@@ -24,12 +25,23 @@
         where ar.admin_id = #{admin_id};
     </select>
 
-    <select id="finsArticleByAdminIdArticleId" resultType="com.example.demo.domain.Article">
-        select id, title, image , content , genre_id , admin_id
-        from articles
-        where admin_id = #{adminId}
-        and id = #{articleId};
+    <!-- 記事１件を検索する -->
+    <select id="findArticleByAdminIdArticleId" resultMap="OneArticleSearch">
+        select ar.id ar_id, ar.title ar_title, ar.image ar_image, ar.content ar_content, ar.genre_id ar_genre_id, ar.admin_id ar_admin_id
+        ,g.id g_id, g.genre_name g_genre_name
+        from articles ar
+        left outer join genre g on ar.genre_id = g.id
+        where ar.admin_id = #{adminId}
+        and ar.id = #{articleId};
     </select>
+
+
+    <update id="updateArticle">
+        update articles set title=#{title}, image=#{image},content=#{content},genre_id=#{genre_id}
+        where id=#{id} and admin_id=#{admin_id};
+    </update>
+
+
 
     <resultMap id="ArticleResult" type="com.example.demo.domain.Article">
         <id column="id" property="a_id" />
@@ -44,6 +56,21 @@
             <result property="name" column="a_name"/>
             <result property="email" column="a_email"/>
         </association>
+        <association property="genre" javaType="com.example.demo.domain.Genre">
+            <result property="id" column="g_id"/>
+            <result property="genre_name" column="g_genre_name"/>
+        </association>
+    </resultMap>
+
+
+    <resultMap id="OneArticleSearch" type="com.example.demo.domain.Article">
+        <id column="id" property="ar_id" />
+        <result property="id" column="ar_id"/>
+        <result property="title" column="ar_title"/>
+        <result property="image" column="ar_image"/>
+        <result property="content" column="ar_content"/>
+        <result property="genre_id" column="ar_genre_id"/>
+        <result property="admin_id" column="ar_admin_id"/>
         <association property="genre" javaType="com.example.demo.domain.Genre">
             <result property="id" column="g_id"/>
             <result property="genre_name" column="g_genre_name"/>

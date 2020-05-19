@@ -109,10 +109,38 @@ public class ArticleService {
      * @param articleId
      * @return
      */
-    public Article finsArticleByAdminIdArticleId(int adminId, int articleId){
+    public Article findArticleByAdminIdArticleId(int adminId, int articleId){
 
-        Article article = articleMapper.finsArticleByAdminIdArticleId(adminId, articleId);
+        Article article = articleMapper.findArticleByAdminIdArticleId(adminId, articleId);
 
         return article;
     }
+
+
+    /**
+     * 記事を編集する.
+     * @param articleRegisterForm
+     */
+    public void editArticle(ArticleRegisterForm articleRegisterForm, String imageUrl, int adminId){
+
+        String image = (String) session.getAttribute("image");
+
+        Article article = new Article();
+        article.setId(articleRegisterForm.getArticleId());
+        article.setTitle(articleRegisterForm.getTitle());
+
+        //もし、画像を変更していたら、新しい画像をsetしてなければ古いのをset
+        if(!articleRegisterForm.getImageFile().isEmpty()){
+            article.setImage(imageUrl);
+        } else {
+            article.setImage(image);
+        }
+        article.setContent(articleRegisterForm.getContent());
+        article.setGenre_id(articleRegisterForm.getGenre_id());
+        article.setAdmin_id(adminId);
+
+        articleMapper.updateArticle(article);
+
+    }
+
 }
