@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
+import com.example.demo.domain.Admin;
 import com.example.demo.domain.Article;
+import com.example.demo.form.AdminEditForm;
 import com.example.demo.form.AdminRegisterForm;
 import com.example.demo.form.AdminRegisterGenreForm;
 import com.example.demo.security.LoginAdmin;
@@ -32,15 +34,6 @@ public class AdminController {
     @Autowired
     private StringRedisTemplate redisTemplate;
 
-//
-//    private final String instanceName;
-//    private final SessionRedis sessionRedis;
-//
-//    public AdminController(String instanceName1, SessionRedis sessionRedis1){
-//        this.instanceName = instanceName1;
-//        this.sessionRedis = sessionRedis1;
-//    }
-
 
 
     /**
@@ -49,7 +42,7 @@ public class AdminController {
      * @return 管理者ログイン画面
      */
     @RequestMapping("/adminLogin")
-    public String login(){
+    public String login(Model model, @AuthenticationPrincipal LoginAdmin loginAdmin){
 
         return"/admin/adminLogin";
     }
@@ -73,21 +66,6 @@ public class AdminController {
      */
     @RequestMapping("/adminTop")
     public String adminTop(Model model, @AuthenticationPrincipal LoginAdmin loginAdmin){
-
-//        SessionRedis sessionRedis = new SessionRedis();
-//        sessionRedis.setSessionId(sessionRedis.getSessionId());
-//        sessionRedis.setName(loginAdmin.getAdmin().getEmail());
-//        session.setAttribute("user", sessionRedis);
-//
-//        System.out.println(sessionRedis);
-
-
-//        //ここでsessionIDを取得してredisに保存。
-//        //他のサーバーにアクセスしても、redisからsessionIDを読み取り、
-//        //session管理することで、sessionがきれずにログアウトまで全ての機能を使えるようにする
-//        String jsessionid = session.getId();
-//        redisTemplate.opsForValue().set("sessionID", jsessionid);
-
 
         /*ログインしたユーザーの名前を渡す*/
         session.setAttribute("adminName",loginAdmin.getAdmin().getName());
@@ -113,7 +91,7 @@ public class AdminController {
     public String registerAdmin(AdminRegisterForm adminRegisterForm){
 
         if(!adminRegisterForm.getConfirmPassword().equals(adminRegisterForm.getPassword())){
-            return "/admin/adminTop";
+            return "redirect:/admin/registerAdmin";
         }
 
         adminService.insertAdmin(adminRegisterForm);
@@ -140,6 +118,42 @@ public class AdminController {
     public String registerGenre(AdminRegisterGenreForm adminRegisterGenreFrom){
 
         adminService.insertGenre(adminRegisterGenreFrom);
+
+        return "redirect:/admin/adminTop";
+    }
+
+
+    /**
+     * 管理者情報変更画面を表示.
+     * @param model
+     * @param loginAdmin
+     * @return
+     */
+    @RequestMapping("/editAdminPage")
+    public String editAdminPage(Model model,  @AuthenticationPrincipal LoginAdmin loginAdmin){
+
+        Admin admin = adminService.findAdminByEmail(loginAdmin.getAdmin().getEmail());
+
+        model.addAttribute("admin",admin);
+
+        return"/admin/editAdmin";
+    }
+
+
+    /**
+     * 管理者情報を編集する.
+     * @param adminEditForm
+     * @param loginAdmin
+     * @return
+     */
+    @RequestMapping("/editAdmin")
+    public String updateAdmin(AdminEditForm adminEditForm,@AuthenticationPrincipal LoginAdmin loginAdmin){
+
+        adminService.updateAdmin(adminEditForm,loginAdmin.getAdmin().getId());
+
+        Admin admin = adminService.findAdminById(loginAdmin.getAdmin().getId());
+
+        session.setAttribute("adminName", admin.getName());
 
         return "redirect:/admin/adminTop";
     }

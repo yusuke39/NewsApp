@@ -26,10 +26,25 @@ public interface AdminMapper {
 
 
     /**
-     * 管理者を１件検索する
+     * 管理情報をメールアドレスで１件検索する.
      * @param email
      * @return
      */
     Admin findAdmin(String email);
+
+
+    /**
+     * 管理者情報をIDで検索する.
+     * @param adminId
+     * @return
+     */
+    Admin findAdminById(int adminId);
+
+
+    /**
+     * 管理者情報更新.
+     * @param admin
+     */
+    void updateAdmin(Admin admin);
 
 }

@@ -20,4 +20,13 @@
         select id,name,email,password from admins where email = #{email};
     </select>
 
+    <!-- 管理者をIDで検索する-->
+    <select id="findAdminById" resultType="com.example.demo.domain.Admin" >
+        select id,name,email,password from admins where id = #{id};
+    </select>
+
+    <update id="updateAdmin">
+        update admins set name=#{name}, email=#{email} where id=#{id};
+    </update>
+
 </mapper>
