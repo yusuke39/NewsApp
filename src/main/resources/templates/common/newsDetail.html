@@ -10,42 +10,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light navbar navbar-dark bg-dark sticky-top">
-    <a class="navbar-brand" href="#">NewsApp</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    ジャンル
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">エンタメ</a>
-                    <a class="dropdown-item" href="#">おもしろ</a>
-                    <a class="dropdown-item" href="#">スポーツ</a>
-                    <a class="dropdown-item" href="#">海外</a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <div class="nav-link" href="#">●●さん：ログイン中</div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">ログアウト</a>
-            </li>
-        </ul>
-    </div>
-    <nav class="navbar navbar-light bg-light navbar navbar-dark bg-dark">
-        <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="width: 350px">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">検索</button>
-        </form>
-    </nav>
-</nav>
+<div th:replace="/common/adminHeader::adminHeader"></div>
 <!--<nav class="nav nav-pills flex-column flex-sm-row">-->
 <!--    <a class="flex-sm-fill text-sm-center nav-link text-success" href="#" style="font-size: 20px; border-right: 1px solid black; border-radius: 0px;">エンタメ</a>-->
 <!--    <a class="flex-sm-fill text-sm-center nav-link text-success" href="#" style="font-size: 20px; border-right: 1px solid black; border-radius: 0px;">おもしろ</a>-->
@@ -55,7 +20,7 @@
 <br>
 <br>
 <nav class="navbar navbar-light bg-info" style="height: 180px;">
-    <span style="color: white; font-size: 40px; margin: 0 auto;">見出しが入ります</span>
+    <span style="color: white; font-size: 40px; margin: 0 auto;" th:text="${article.title}">見出しが入ります</span>
 </nav>
 <br>
 <br>
@@ -67,14 +32,14 @@
     </ol>
     <div class="carousel-inner">
         <div class="carousel-item active" style="width: 800px; height: 500px; margin: 0 auto">
-            <img class="d-block w-100" src="/Users/hiranoyuusuke/IdeaProjects/NewsApp/src/main/resources/static/images/g1.jpg" alt="First slide">
+            <img class="d-block w-100" th:src="${article.image}" alt="First slide">
         </div>
-        <div class="carousel-item" style="width: 800px; height: 500px; margin: 0 auto">
-            <img class="d-block w-100" src="/Users/hiranoyuusuke/IdeaProjects/NewsApp/src/main/resources/static/images/g2.jpg" alt="Second slide">
-        </div>
-        <div class="carousel-item" style="width: 800px; height: 500px; margin: 0 auto">
-            <img class="d-block w-100" src="/Users/hiranoyuusuke/IdeaProjects/NewsApp/src/main/resources/static/images/g3.jpg" alt="Third slide">
-        </div>
+<!--        <div class="carousel-item" style="width: 800px; height: 500px; margin: 0 auto">-->
+<!--            <img class="d-block w-100" src="/Users/hiranoyuusuke/IdeaProjects/NewsApp/src/main/resources/static/images/g2.jpg" alt="Second slide">-->
+<!--        </div>-->
+<!--        <div class="carousel-item" style="width: 800px; height: 500px; margin: 0 auto">-->
+<!--            <img class="d-block w-100" src="/Users/hiranoyuusuke/IdeaProjects/NewsApp/src/main/resources/static/images/g3.jpg" alt="Third slide">-->
+<!--        </div>-->
     </div>
     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -89,7 +54,7 @@
 <br>
 <br>
 <div style="width: 800px; height: 500px; margin: 0 auto">
-    <pre style="font-size: 17px;">
+    <div style="font-size: 17px; white-space:pre-wrap;">
  物静かに、語り始めた。元読売ジャイアンツの投手・杉山晃紀さんだ。2011年に引退後、ダーツ選手のプロテストに合格し、平日は不動産営業マンとして働くかたわら、土日に大会で腕を試す日々を送る。<br>
 
 一軍でマウンドに上がる姿はなかったが、現役生活3年の間に抱いていたのは、「目立ちたい」という思いと、「なぜ自分がチヤホヤされるのだろう」といった、相反する葛藤だった。<br>
@@ -106,7 +71,7 @@
 
 関連記事：広島カープ・赤松真人、胃がん治療よりも「二日酔いのほうが…」<br>
 
-</pre>
+</div>
 
 </div>
 

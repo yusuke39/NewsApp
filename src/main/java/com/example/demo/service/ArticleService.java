@@ -4,14 +4,14 @@ import com.example.demo.domain.Article;
 import com.example.demo.domain.Genre;
 import com.example.demo.form.ArticleRegisterForm;
 import com.example.demo.mapper.ArticleMapper;
-import com.example.demo.security.LoginAdmin;
+import com.google.api.gax.paging.Page;
 import com.google.cloud.storage.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import java.awt.print.Pageable;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,10 +34,7 @@ public class ArticleService {
      * 記事をDBへ登録する.
      * @param articleRegisterForm
      */
-    public void registerArticle(ArticleRegisterForm articleRegisterForm, String imageUrl){
-
-        int adminId = (int) session.getAttribute("adminId");
-
+    public void registerArticle(ArticleRegisterForm articleRegisterForm, int adminId, String imageUrl){
 
         Article article = new Article();
         article.setTitle(articleRegisterForm.getTitle());
@@ -88,11 +85,18 @@ public class ArticleService {
      * @param adminId
      * @return
      */
-    public List<Article> findArticlesByAdminId(int adminId){
+    public List<Article> findArticlesByAdminId(int adminId, Integer pageCount){
 
-        List<Article> articleList = articleMapper.findArticlesByAdminId(adminId);
+        /*もしnullなら0で０以外は計算して、SQLのoffsetに渡す*/
+        if(pageCount == null){
+            pageCount = 0;
+        } else {
+            pageCount = 5 * (pageCount - 1);
+        }
 
-        return articleList;
+
+        return articleMapper.findArticlesByAdminId(adminId, pageCount);
+
     }
 
 
@@ -106,4 +110,65 @@ public class ArticleService {
 
         return genreList;
     }
+
+
+    /**
+     * 記事を管理者IDと記事IDで検索する.
+     * @param adminId
+     * @param articleId
+     * @return
+     */
+    public Article findArticleByAdminIdArticleId(int adminId, int articleId){
+
+        return articleMapper.findArticleByAdminIdArticleId(adminId, articleId);
+    }
+
+
+    /**
+     * 記事を編集する.
+     * @param articleRegisterForm
+     */
+    public void editArticle(ArticleRegisterForm articleRegisterForm, String imageUrl, int adminId){
+
+        String image = (String) session.getAttribute("image");
+
+        Article article = new Article();
+        article.setId(articleRegisterForm.getArticleId());
+        article.setTitle(articleRegisterForm.getTitle());
+
+        //もし、画像を変更していたら、新しい画像をsetしてなければ古いのをset
+        if(!articleRegisterForm.getImageFile().isEmpty()){
+            article.setImage(imageUrl);
+        } else {
+            article.setImage(image);
+        }
+        article.setContent(articleRegisterForm.getContent());
+        article.setGenre_id(articleRegisterForm.getGenre_id());
+        article.setAdmin_id(adminId);
+
+        articleMapper.updateArticle(article);
+    }
+
+
+    /**
+     * 管理者IDで該当する記事の件数を取得する.
+     * @param adminId
+     * @return 検索した記事の件数.
+     */
+    public Integer getCount(int adminId) {
+
+        return articleMapper.countArticlesByAdminId(adminId);
+
+    }
+
+
+//    public Integer getCount(String name){
+//
+//        if(name == null || "".equals(name) || "null".equals(name)) {
+//            return articleMapper.countArticlesByAdminId();
+//        }
+//
+//        return articleMapper.searchLikeArticles(name);
+//    }
+
 }

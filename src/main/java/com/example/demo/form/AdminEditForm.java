@@ -1,40 +1,26 @@
-package com.example.demo.domain;
+package com.example.demo.form;
 
-import java.io.Serializable;
+public class AdminEditForm {
 
-public class Admin implements Serializable {
-
-    /**管理者ID*/
     private int id;
-    /**管理者名*/
     private String name;
-    /**管理者メールアドレス*/
     private String email;
-    /**管理者パスワード*/
-    private String password;
-//    /**有効なユーザーか判定する*/
-//    public boolean isEnabled;
-//
-//    public boolean isAdmin;
 
-
-    public Admin(int id, String name, String email, String password) {
+    public AdminEditForm(int id, String name, String email) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.password = password;
     }
 
-    public Admin() {
+    public AdminEditForm() {
     }
 
     @Override
     public String toString() {
-        return "Admin{" +
+        return "AdminEditForm{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
                 '}';
     }
 
@@ -60,13 +46,5 @@ public class Admin implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }

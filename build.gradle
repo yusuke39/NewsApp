@@ -17,12 +17,14 @@ repositories {
 
 
 dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'com.google.cloud.tools:appengine-gradle-plugin:2.2.0'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.2'
 	implementation 'com.bmuschko:gradle-docker-plugin:4.3.0'
+	implementation 'org.springframework.session:spring-session-core'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
@@ -30,6 +32,9 @@ dependencies {
 	compile 'com.google.appengine:appengine-api-1.0-sdk:+'
 	compile group: 'com.google.cloud', name: 'google-cloud-storage', version: '1.107.0'
 	compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.1")
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.1.8.RELEASE'
+	compile group: 'org.springframework.session', name: 'spring-session-data-redis', version: '2.3.0.RELEASE'
+	compile("org.springframework.session:spring-session-data-redis")
 	compile("mysql:mysql-connector-java")
 }
 

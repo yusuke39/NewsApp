@@ -10,30 +10,33 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </head>
 <body>
-<div th:replace="adminHeader::adminHeader"></div>
+<div th:replace="/common/adminHeader::adminHeader"></div>
 <br>
 <br>
-<form>
+<h1 style="width: 350px; margin: auto;">管理者情報編集</h1>
+<br>
+<br>
+<form method="post" th:action="@{/admin/editAdmin}">
     <div class="form-group" style="width: 500px; margin: auto;">
         <label for="exampleInputEmail1">管理者名</label>
-        <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="ユーザー名">
+        <input type="text" class="form-control" aria-describedby="emailHelp"  name="name" th:value="${admin.name}">
     </div>
     <br>
     <div class="form-group" style="width: 500px; margin: auto;">
         <label for="exampleInputEmail1">メールアドレス</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="メールアドレス">
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" th:value="${admin.email}">
         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
-    <br>
-    <div class="form-group" style="width: 500px; margin: auto;">
-        <label for="exampleInputPassword1">パスワード</label>
-        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="パスワード">
-    </div>
-    <br>
-    <div class="form-group" style="width: 500px; margin: auto;">
-        <label for="exampleInputPassword1">パスワード確認用</label>
-        <input type="text" class="form-control" placeholder="パスワード確認用">
-    </div>
+<!--    <br>-->
+<!--    <div class="form-group" style="width: 500px; margin: auto;">-->
+<!--        <label for="exampleInputPassword1">パスワード</label>-->
+<!--        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="パスワード">-->
+<!--    </div>-->
+<!--    <br>-->
+<!--    <div class="form-group" style="width: 500px; margin: auto;">-->
+<!--        <label for="exampleInputPassword1">パスワード確認用</label>-->
+<!--        <input type="text" class="form-control" placeholder="パスワード確認用">-->
+<!--    </div>-->
     <br>
     <br>
     <button type="submit" class="btn btn-primary mx-auto d-block btn-success" style="width: 200px;">管理者編集完了</button>

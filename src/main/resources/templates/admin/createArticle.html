@@ -13,7 +13,10 @@
     <script th:src="@{/js/common.js}"></script>
 </head>
 <body>
-<div th:replace="adminHeader::adminHeader"></div>
+<div th:replace="/common/adminHeader::adminHeader"></div>
+<br>
+<br>
+<h1 style="width: 350px; margin: auto;">記事新規登録</h1>
 <br>
 <br>
 <form method="post" th:action="@{/article/registerArticle}" enctype="multipart/form-data" style="width: 500px; margin: auto;">
