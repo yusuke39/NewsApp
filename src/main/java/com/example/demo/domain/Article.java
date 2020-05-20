@@ -1,5 +1,8 @@
 package com.example.demo.domain;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
 public class Article {
 
     /**記事ID*/
