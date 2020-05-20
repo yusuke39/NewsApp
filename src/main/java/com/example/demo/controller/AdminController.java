@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -65,17 +66,29 @@ public class AdminController {
      * @return 管理者TOP画面の表示.
      */
     @RequestMapping("/adminTop")
-    public String adminTop(Model model, @AuthenticationPrincipal LoginAdmin loginAdmin){
+    public String adminTop(Integer pageCount, @AuthenticationPrincipal LoginAdmin loginAdmin,  Model model){
+
+        int adminId = loginAdmin.getAdmin().getId();
 
         /*ログインしたユーザーの名前を渡す*/
         session.setAttribute("adminName",loginAdmin.getAdmin().getName());
 
         /*管理者IDを取得してセッションに入れる*/
-        session.setAttribute("adminId",loginAdmin.getAdmin().getId());
+        session.setAttribute("adminId",adminId);
 
         /*この管理者が登録した記事を検索し、全て取得する*/
-        List<Article> articleList = articleService.findArticlesByAdminId(loginAdmin.getAdmin().getId());
+        List<Article> articleList = articleService.findArticlesByAdminId(adminId, pageCount);
+
+        /*ページネーション (下のcountArticlesメソッド呼び出してます。）*/
+       Integer countArticles =  countArticles(adminId);
+        if(countArticles == 0){
+             model.addAttribute("countArticles", countArticles);
+        } else {
+             model.addAttribute("countArticles", countArticles);
+        }
+
         model.addAttribute("articleList", articleList);
+
 
         return "/admin/adminTop";
     }
@@ -158,5 +171,41 @@ public class AdminController {
         return "redirect:/admin/adminTop";
     }
 
+
+//    /**
+//     * ページネーションの数字を押した時のメソッド.
+//     * @param page
+//     * @param loginAdmin
+//     * @param model
+//     * @return
+//     */
+//    @RequestMapping("/pagination")
+//    public String pagination(Integer page, @AuthenticationPrincipal LoginAdmin loginAdmin, Model model){
+//
+//
+//
+//        countArticles(loginAdmin.getAdmin().getId());
+//
+//        return "redirect:/admin/adminTop";
+//    }
+
+
+    /**
+     * ページネーション用の計算ロジック.
+     * @param adminId
+     * @return ページネーションに表示させる数字
+     */
+    public Integer countArticles(int adminId){
+
+        Integer countArticles = articleService.getCount(adminId);
+
+        if(countArticles % 5 == 0){
+            return countArticles / 5;
+        } else {
+            return countArticles / 5 + 1;
+        }
+
+
+    }
 
 }

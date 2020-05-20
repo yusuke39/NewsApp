@@ -9,10 +9,14 @@
         values (#{title},#{image},#{content},#{genre_id},#{admin_id});
     </insert>
 
-
     <!-- ジャンルを全権取得する-->
     <select id="findAllGenre" resultType="com.example.demo.domain.Genre">
         select id, genre_name from genre;
+    </select>
+
+    <!-- ページネーション用のselect、該当する管理者IDの記事の件数を検索する.-->
+    <select id="countArticlesByAdminId" resultType="Integer">
+        select COUNT(*) from articles where admin_id = #{adminId};
     </select>
 
     <!--管理者が登録した記事を管理者IDで検索する-->
@@ -22,7 +26,8 @@
         from articles ar
         left outer join admins a on a.id = ar.admin_id
         left outer join genre g on g.id = ar.genre_id
-        where ar.admin_id = #{admin_id};
+        where ar.admin_id = #{adminId}
+        ORDER BY ar.id LIMIT 5 OFFSET #{pageCount};
     </select>
 
     <!-- 記事１件を検索する -->

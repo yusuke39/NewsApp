@@ -1,10 +1,12 @@
 package com.example.demo.mapper;
 
-import com.example.demo.domain.Admin;
 import com.example.demo.domain.Article;
 import com.example.demo.domain.Genre;
+import com.google.api.gax.paging.Page;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 @Mapper
@@ -22,7 +24,8 @@ public interface ArticleMapper {
      * @param adminId
      * @return
      */
-    List<Article> findArticlesByAdminId(int adminId);
+    List<Article> findArticlesByAdminId(int adminId, int pageCount);
+
 
 
     /**
@@ -36,7 +39,7 @@ public interface ArticleMapper {
      * 記事を管理者IDと記事IDで検索する.
      * @return
      */
-    Article findArticleByAdminIdArticleId(int adminId, int articleId);
+     Article findArticleByAdminIdArticleId(int adminId, int articleId);
 
 
     /**
@@ -44,4 +47,8 @@ public interface ArticleMapper {
      * @param article
      */
     void updateArticle(Article article);
+
+    Integer countArticlesByAdminId(int adminId);
+
+
 }
