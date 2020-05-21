@@ -172,23 +172,6 @@ public class AdminController {
     }
 
 
-//    /**
-//     * ページネーションの数字を押した時のメソッド.
-//     * @param page
-//     * @param loginAdmin
-//     * @param model
-//     * @return
-//     */
-//    @RequestMapping("/pagination")
-//    public String pagination(Integer page, @AuthenticationPrincipal LoginAdmin loginAdmin, Model model){
-//
-//
-//
-//        countArticles(loginAdmin.getAdmin().getId());
-//
-//        return "redirect:/admin/adminTop";
-//    }
-
 
     /**
      * ページネーション用の計算ロジック.

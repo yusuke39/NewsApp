@@ -46,6 +46,9 @@
         where id=#{id} and admin_id=#{admin_id};
     </update>
 
+    <delete id="deleteArticle">
+        delete from articles where id = #{articleId}
+    </delete>
 
 
     <resultMap id="ArticleResult" type="com.example.demo.domain.Article">
