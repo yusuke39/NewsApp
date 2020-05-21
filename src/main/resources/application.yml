@@ -12,6 +12,10 @@ spring:
   redis:
     host: localhost
     port: 6379
+  servlet:
+    multipart:
+      max-file-size: 30MB
+      max-request-size: 30MB
 
 #---
 #spring:
@@ -28,6 +32,10 @@ spring:
 #  redis:
 #    host: redis
 #    port: 6379
+#  servlet:
+#    multipart:
+#      max-file-size: 30MB
+#      max-request-size: 30MB
 
 ##
 ##logging.level.org.springframework: debug

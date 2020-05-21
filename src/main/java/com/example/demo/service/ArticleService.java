@@ -162,6 +162,16 @@ public class ArticleService {
     }
 
 
+    /**
+     * 記事を削除する(ajax通信）.
+     * @param adminId
+     */
+    public void deleteArticle(int adminId){
+
+        articleMapper.deleteArticle(adminId);
+    }
+
+
 //    public Integer getCount(String name){
 //
 //        if(name == null || "".equals(name) || "null".equals(name)) {

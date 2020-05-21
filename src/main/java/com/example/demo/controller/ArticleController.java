@@ -163,4 +163,20 @@ public class ArticleController {
     }
 
 
+    /**
+     * 記事を削除する.
+     * @param deleteConfirm
+     * @param articleId
+     * @return
+     */
+    @RequestMapping("/deleteArticle")
+    public String deleteArticle(@RequestParam("deleteConfirm") boolean deleteConfirm,
+                                @RequestParam("articleId") int articleId){
+
+        articleService.deleteArticle(articleId);
+
+        return "redirect:/admin/adminTop";
+    }
+
+
 }
