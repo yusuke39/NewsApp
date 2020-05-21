@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: asia.gcr.io/newsapp-273606/newsappnginx@sha256:0e23322e7b9e910f4e68ad7cbee6c9905bb47ca6324eadc4e93669b6c55d3cab
+        image: asia.gcr.io/newsapp-273606/newsappnginx@sha256:ddac3bc625a7b8f8366f2bf249dfa7a88994a6faaaae899bfa0975eb09a53ded
         imagePullPolicy: Always
         ports:
           - containerPort: 80
