@@ -36,9 +36,15 @@
             </li>
         </ul>
     </div>
+    <div th:each="genre : ${genreList}">
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" th:value="${genre.id}">
+            <label class="form-check-label" for="inlineCheckbox1" th:text="${genre.genre_name}" style="color: #fff"></label>
+        </div>
+    </div>
     <nav class="navbar navbar-light bg-light navbar navbar-dark bg-dark">
         <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="width: 350px">
+            <input class="form-control mr-sm-2" type="search" placeholder="タイトル名" aria-label="Search" style="width: 350px" name="titleName">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">検索</button>
         </form>
     </nav>

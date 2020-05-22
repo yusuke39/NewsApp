@@ -103,8 +103,7 @@ public class ArticleController {
         session.setAttribute("image", article.getImage());
 
         //ジャンルを取得
-        List<Genre> genreList = articleService.findAllGenre();
-        model.addAttribute("genreList", genreList);
+        model.addAttribute("genreList", articleService.findAllGenre());
 
         return "/admin/editArticle";
     }

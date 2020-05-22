@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.domain.Admin;
 import com.example.demo.domain.Article;
+import com.example.demo.domain.Genre;
 import com.example.demo.form.AdminEditForm;
 import com.example.demo.form.AdminRegisterForm;
 import com.example.demo.form.AdminRegisterGenreForm;
@@ -75,6 +76,9 @@ public class AdminController {
 
         /*管理者IDを取得してセッションに入れる*/
         session.setAttribute("adminId",adminId);
+
+        /*ジャンルを取得してheaderに表示する*/
+        model.addAttribute("genreList", articleService.findAllGenre());
 
         /*この管理者が登録した記事を検索し、全て取得する*/
         List<Article> articleList = articleService.findArticlesByAdminId(adminId, pageCount);
