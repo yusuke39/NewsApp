@@ -4,14 +4,12 @@ import com.example.demo.domain.Article;
 import com.example.demo.domain.Genre;
 import com.example.demo.form.ArticleRegisterForm;
 import com.example.demo.mapper.ArticleMapper;
-import com.google.api.gax.paging.Page;
 import com.google.cloud.storage.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-import java.awt.print.Pageable;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -169,6 +167,18 @@ public class ArticleService {
     public void deleteArticle(int adminId){
 
         articleMapper.deleteArticle(adminId);
+    }
+
+
+    /**
+     * 記事をジャンルIDとタイトルで曖昧検索する.
+     * @param genreId
+     * @param titleName
+     * @return
+     */
+    public Article findLikeArticlesByIdAndTitle(int genreId, String titleName){
+
+        return articleMapper.findLikeArticlesByIdAndTitle(genreId, titleName);
     }
 
 

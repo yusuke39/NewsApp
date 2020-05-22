@@ -178,4 +178,17 @@ public class ArticleController {
     }
 
 
+    /**
+     * 記事を曖昧検索する.
+     * @param genreId
+     * @param titleName
+     * @return
+     */
+    @RequestMapping("/searchArticles")
+    public Article searchArticles(int genreId, String titleName){
+
+        return articleService.findLikeArticlesByIdAndTitle(genreId, titleName);
+    }
+
+
 }

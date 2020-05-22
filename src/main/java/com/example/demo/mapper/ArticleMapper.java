@@ -59,4 +59,13 @@ public interface ArticleMapper {
      */
     void deleteArticle(int articleId);
 
+
+    /**
+     * 記事をタイトルとジャンルIDで曖昧検索する.
+     * @param genreId
+     * @param titleName
+     * @return
+     */
+    Article findLikeArticlesByIdAndTitle(int genreId, String titleName);
+
 }
