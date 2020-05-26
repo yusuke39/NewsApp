@@ -173,13 +173,26 @@ public class ArticleService {
     /**
      * 記事をジャンルIDとタイトルで曖昧検索する.
      * @param genreId
-     * @param titleName
+     * @param adminId
      * @return
      */
-    public Article findLikeArticlesByIdAndTitle(int genreId, String titleName){
+    public List<Article> findArticlesByGenreId(int genreId,int adminId){
 
-        return articleMapper.findLikeArticlesByIdAndTitle(genreId, titleName);
+        return articleMapper.findArticlesByGenreId(genreId, adminId);
     }
+
+
+    /**
+     * タイトル名で記事を曖昧検索する.
+     * @param titleName
+     * @param adminId
+     * @return
+     */
+    public List<Article> findArticlesByLikeTitleName(String titleName, int adminId){
+
+        return articleMapper.findArticlesByLikeTitleName(titleName, adminId);
+    }
+
 
 
 //    public Integer getCount(String name){

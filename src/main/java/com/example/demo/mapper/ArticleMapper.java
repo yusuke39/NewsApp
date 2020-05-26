@@ -63,9 +63,18 @@ public interface ArticleMapper {
     /**
      * 記事をタイトルとジャンルIDで曖昧検索する.
      * @param genreId
-     * @param titleName
+     * @param adminId
      * @return
      */
-    Article findLikeArticlesByIdAndTitle(int genreId, String titleName);
+    List<Article> findArticlesByGenreId(int genreId, int adminId);
+
+
+    /**
+     * タイトル名で記事を曖昧検索する.
+     * @param titleName
+     * @param adminId
+     * @return
+     */
+    List<Article> findArticlesByLikeTitleName(String titleName, int adminId);
 
 }

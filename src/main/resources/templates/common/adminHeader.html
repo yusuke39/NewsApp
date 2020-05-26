@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head th:fragment="metaHeader">
     <meta charset="UTF-8">
     <title>NewsApp管理者TOPページ</title>
@@ -36,18 +36,19 @@
             </li>
         </ul>
     </div>
-    <div th:each="genre : ${genreList}">
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" th:value="${genre.id}">
-            <label class="form-check-label" for="inlineCheckbox1" th:text="${genre.genre_name}" style="color: #fff"></label>
-        </div>
-    </div>
+<form action="">
+    <input class="adminId" type="hidden" th:value="${session.adminId}">
+    <select class="custom-select"  style="width: 150px;">
+        <option selected>お選び下さい</option>
+       <span th:each="genre : ${genreList}">
+             <option th:value="${genre.id}" th:text="${genre.genre_name}">A</option>
+       </span>
+    </select>
     <nav class="navbar navbar-light bg-light navbar navbar-dark bg-dark">
-        <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="タイトル名" aria-label="Search" style="width: 350px" name="titleName">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">検索</button>
-        </form>
+        <input class="form-control mr-sm-2" type="search" placeholder="タイトル名" aria-label="Search" id="titleName" style="width: 350px">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" v-on:click="searchArticlesByTitleName">検索</button>
     </nav>
+</form>
 </nav>
 <br>
 <br>

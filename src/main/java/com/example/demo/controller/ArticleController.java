@@ -164,31 +164,15 @@ public class ArticleController {
 
     /**
      * 記事を削除する.
-     * @param deleteConfirm
      * @param articleId
      * @return
      */
     @RequestMapping("/deleteArticle")
-    public String deleteArticle(@RequestParam("deleteConfirm") boolean deleteConfirm,
-                                @RequestParam("articleId") int articleId){
+    public String deleteArticle(@RequestParam("articleId") int articleId){
 
         articleService.deleteArticle(articleId);
 
         return "redirect:/admin/adminTop";
     }
-
-
-    /**
-     * 記事を曖昧検索する.
-     * @param genreId
-     * @param titleName
-     * @return
-     */
-    @RequestMapping("/searchArticles")
-    public Article searchArticles(int genreId, String titleName){
-
-        return articleService.findLikeArticlesByIdAndTitle(genreId, titleName);
-    }
-
 
 }
