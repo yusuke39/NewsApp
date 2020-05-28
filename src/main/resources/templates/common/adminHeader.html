@@ -36,16 +36,16 @@
             </li>
         </ul>
     </div>
-<form action="">
-    <input class="adminId" type="hidden" th:value="${session.adminId}">
-    <select class="custom-select"  style="width: 150px;">
-        <option selected>お選び下さい</option>
+<form th:action="@{/article/search}" method="post">
+    <input class="adminId" type="hidden" th:value="${session.adminId}" name="adminId">
+    <select class="custom-select"  style="width: 150px; margin-top:10px;" name="genreId">
+        <option th:value="0" selected>お選び下さい</option>
        <span th:each="genre : ${genreList}">
              <option th:value="${genre.id}" th:text="${genre.genre_name}">A</option>
        </span>
     </select>
-    <nav class="navbar navbar-light bg-light navbar navbar-dark bg-dark">
-        <input class="form-control mr-sm-2" type="search" placeholder="タイトル名" aria-label="Search" id="titleName" style="width: 350px">
+    <nav class="navbar navbar-light bg-light navbar navbar-dark bg-dark" style="float: right;">
+        <input class="form-control mr-sm-2" type="search" placeholder="タイトル名" aria-label="Search" id="titleName" style="width: 350px" name="titleName">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit" v-on:click="searchArticlesByTitleName">検索</button>
     </nav>
 </form>

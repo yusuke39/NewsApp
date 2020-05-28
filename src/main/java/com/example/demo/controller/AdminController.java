@@ -2,7 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.domain.Admin;
 import com.example.demo.domain.Article;
-import com.example.demo.domain.Genre;
+
 import com.example.demo.form.AdminEditForm;
 import com.example.demo.form.AdminRegisterForm;
 import com.example.demo.form.AdminRegisterGenreForm;
@@ -29,6 +29,7 @@ public class AdminController {
 
     @Autowired
     ArticleService articleService;
+
 
     @Autowired
     HttpSession session;
@@ -84,12 +85,14 @@ public class AdminController {
         List<Article> articleList = articleService.findArticlesByAdminId(adminId, pageCount);
 
         /*ページネーション (下のcountArticlesメソッド呼び出してます。）*/
-       Integer countArticles =  countArticles(adminId);
+       Integer countArticles =  countArticles(articleList.size());
+
         if(countArticles == 0){
              model.addAttribute("countArticles", countArticles);
         } else {
              model.addAttribute("countArticles", countArticles);
         }
+
 
         model.addAttribute("articleList", articleList);
 
@@ -179,17 +182,17 @@ public class AdminController {
 
     /**
      * ページネーション用の計算ロジック.
-     * @param adminId
+     * @param articleListSize
      * @return ページネーションに表示させる数字
      */
-    public Integer countArticles(int adminId){
+    public Integer countArticles(int articleListSize){
 
-        Integer countArticles = articleService.getCount(adminId);
+//        Integer countArticles = articleService.getCount(adminId);
 
-        if(countArticles % 5 == 0){
-            return countArticles / 5;
+        if(articleListSize % 5 == 0){
+            return articleListSize / 5;
         } else {
-            return countArticles / 5 + 1;
+            return articleListSize / 5 + 1;
         }
 
 

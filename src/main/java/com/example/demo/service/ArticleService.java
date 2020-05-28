@@ -1,12 +1,15 @@
 package com.example.demo.service;
 
+import com.example.demo.controller.AdminController;
 import com.example.demo.domain.Article;
 import com.example.demo.domain.Genre;
 import com.example.demo.form.ArticleRegisterForm;
+import com.example.demo.form.ArticleSearchFrom;
 import com.example.demo.mapper.ArticleMapper;
 import com.google.cloud.storage.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
@@ -22,6 +25,9 @@ public class ArticleService {
 
     @Autowired
     ArticleMapper articleMapper;
+
+    @Autowired
+    AdminController adminController;
 
     @Autowired
     HttpSession session;
@@ -161,7 +167,7 @@ public class ArticleService {
 
 
     /**
-     * 記事を削除する(ajax通信）.
+     * 記事を削除する.
      * @param adminId
      */
     public void deleteArticle(int adminId){
@@ -171,27 +177,51 @@ public class ArticleService {
 
 
     /**
-     * 記事をジャンルIDとタイトルで曖昧検索する.
+     * 検索系の処理.
+     * @param articleSearchFrom
+     * @param pageCount
+     * @param adminId
      * @param genreId
-     * @param adminId
      * @return
      */
-    public List<Article> findArticlesByGenreId(int genreId,int adminId){
+    public List<Article> findArticlesBySearch(ArticleSearchFrom articleSearchFrom, Integer pageCount, int adminId, int genreId){
 
-        return articleMapper.findArticlesByGenreId(genreId, adminId);
+        session.setAttribute("genreId",articleSearchFrom.getGenreId());
+        session.setAttribute("adminId",articleSearchFrom.getAdminId());
+
+
+        List<Article> articleList = null;
+
+        //genreIDもtitleNameもnullなら検索させない。
+        if(articleSearchFrom == null || articleSearchFrom.getGenreId() == 0 && articleSearchFrom.getTitleName() == ""){
+            return null;
+        }
+
+        //genreIDのみ入力があった場合。
+        if(articleSearchFrom.getGenreId() != 0 && articleSearchFrom.getTitleName() == "") {
+
+            //titleNameなしで検索かける.
+            articleList = articleMapper.findArticlesByGenreId(genreId, adminId);
+
+            return articleList;
+        }
+
+        //タイトル名のみ入力があった場合.
+        if(articleSearchFrom.getGenreId() == 0 && articleSearchFrom.getTitleName() != ""){
+
+           articleList = articleMapper.findArticlesByLikeTitleName(articleSearchFrom.getTitleName(), articleSearchFrom.getAdminId());
+
+           return articleList;
+        }
+
+        //genreIDもtitleNameも両方共に入力があった場合。
+         articleList = articleMapper.findArticlesByLikeTitleNameAndGenreId(articleSearchFrom.getTitleName(),articleSearchFrom.getGenreId(),
+                                                                            articleSearchFrom.getAdminId());
+
+        return articleList;
+
     }
 
-
-    /**
-     * タイトル名で記事を曖昧検索する.
-     * @param titleName
-     * @param adminId
-     * @return
-     */
-    public List<Article> findArticlesByLikeTitleName(String titleName, int adminId){
-
-        return articleMapper.findArticlesByLikeTitleName(titleName, adminId);
-    }
 
 
 

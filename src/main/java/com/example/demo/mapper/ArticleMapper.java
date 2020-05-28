@@ -70,11 +70,20 @@ public interface ArticleMapper {
 
 
     /**
-     * タイトル名で記事を曖昧検索する.
+     * タイトルで記事を曖昧検索する.
      * @param titleName
      * @param adminId
      * @return
      */
-    List<Article> findArticlesByLikeTitleName(String titleName, int adminId);
+    List<Article> findArticlesByLikeTitleName(String titleName, int adminId );
+
+
+    /**
+     * タイトル名とジャンルIDで記事を曖昧検索する.
+     * @param titleName
+     * @param adminId
+     * @return
+     */
+    List<Article> findArticlesByLikeTitleNameAndGenreId(String titleName, int genreId , int adminId);
 
 }
