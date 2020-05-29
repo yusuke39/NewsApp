@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.domain.Article;
 import com.example.demo.domain.Genre;
 import com.example.demo.form.ArticleRegisterForm;
+import com.example.demo.form.ArticleSearchFrom;
 import com.example.demo.security.LoginAdmin;
 import com.example.demo.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +21,17 @@ import java.io.IOException;
 import java.util.List;
 
 
+
 @Controller
 @RequestMapping("/article")
 public class ArticleController {
 
     @Autowired
     ArticleService articleService;
+
+    @Autowired
+    AdminController adminController;
+
 
     @Autowired
     HttpSession session;
@@ -103,8 +109,7 @@ public class ArticleController {
         session.setAttribute("image", article.getImage());
 
         //ジャンルを取得
-        List<Genre> genreList = articleService.findAllGenre();
-        model.addAttribute("genreList", genreList);
+        model.addAttribute("genreList", articleService.findAllGenre());
 
         return "/admin/editArticle";
     }
@@ -164,14 +169,49 @@ public class ArticleController {
 
 
     /**
+     * 記事検索機能.
+     * @param articleSearchFrom
+     * @param model
+     * @return
+     */
+    @RequestMapping("/search")
+    public String findArticlesByLikeTitleNameAndGenreId(ArticleSearchFrom articleSearchFrom, Integer pageCount ,Model model,
+                                                        @RequestParam("genreId") int genreId, @RequestParam("adminId") int adminId){
+
+
+        //ジャンルを取得する.
+        model.addAttribute("genreList", articleService.findAllGenre());
+
+
+        List<Article> articleList = articleService.findArticlesBySearch(articleSearchFrom, pageCount, adminId, genreId);
+
+        if(articleList == null){
+            return "/admin/adminTop";
+        }
+
+        Integer countArticles =  adminController.countArticles(articleList.size());
+
+        if(countArticles == 0){
+            model.addAttribute("countArticles", countArticles);
+        } else {
+            model.addAttribute("countArticles", countArticles);
+        }
+
+        model.addAttribute("articleList", articleList);
+
+           return "/admin/resultSearch";
+        }
+
+
+
+
+    /**
      * 記事を削除する.
-     * @param deleteConfirm
      * @param articleId
      * @return
      */
     @RequestMapping("/deleteArticle")
-    public String deleteArticle(@RequestParam("deleteConfirm") boolean deleteConfirm,
-                                @RequestParam("articleId") int articleId){
+    public String deleteArticle(@RequestParam("articleId") int articleId){
 
         articleService.deleteArticle(articleId);
 
@@ -180,3 +220,4 @@ public class ArticleController {
 
 
 }
+
