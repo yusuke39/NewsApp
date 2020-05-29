@@ -2,11 +2,7 @@ package com.example.demo.mapper;
 
 import com.example.demo.domain.Article;
 import com.example.demo.domain.Genre;
-import com.google.api.gax.paging.Page;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.awt.print.Pageable;
 import java.util.List;
 
 @Mapper
@@ -48,7 +44,46 @@ public interface ArticleMapper {
      */
     void updateArticle(Article article);
 
+
+    /**
+     * 管理者IDを使って該当する記事の件数を検索する.
+     * @param adminId
+     * @return
+     */
     Integer countArticlesByAdminId(int adminId);
 
+
+    /**
+     * 記事を削除する.
+     * @param articleId
+     */
+    void deleteArticle(int articleId);
+
+
+    /**
+     * 記事をタイトルとジャンルIDで曖昧検索する.
+     * @param genreId
+     * @param adminId
+     * @return
+     */
+    List<Article> findArticlesByGenreId(int genreId, int adminId);
+
+
+    /**
+     * タイトルで記事を曖昧検索する.
+     * @param titleName
+     * @param adminId
+     * @return
+     */
+    List<Article> findArticlesByLikeTitleName(String titleName, int adminId );
+
+
+    /**
+     * タイトル名とジャンルIDで記事を曖昧検索する.
+     * @param titleName
+     * @param adminId
+     * @return
+     */
+    List<Article> findArticlesByLikeTitleNameAndGenreId(String titleName, int genreId , int adminId);
 
 }

@@ -40,12 +40,40 @@
         and ar.id = #{articleId};
     </select>
 
+    <!-- 記事をジャンルIDで検索する-->
+    <select id="findArticlesByGenreId" resultType="com.example.demo.domain.Article">
+        select id , title, image, content, genre_id, admin_id
+        from articles
+        where genre_id = #{genreId}
+        and admin_id = #{adminId};
+    </select>
 
+    <select id="findArticlesByLikeTitleName" resultType="com.example.demo.domain.Article">
+        select id , title, image, content, genre_id, admin_id
+        from articles
+        where title like #{titleName}
+        and admin_id = #{adminId};
+    </select>
+
+    <!-- 記事のタイトル名とジャンルIDで曖昧検索する-->
+    <select id="findArticlesByLikeTitleNameAndGenreId" resultType="com.example.demo.domain.Article">
+        select id , title, image, content, genre_id, admin_id
+        from articles
+        where title like #{titleName}
+        and genre_id = #{genreId}
+        and admin_id = #{adminId};
+    </select>
+
+    <!-- 記事をアップデートする-->
     <update id="updateArticle">
         update articles set title=#{title}, image=#{image},content=#{content},genre_id=#{genre_id}
         where id=#{id} and admin_id=#{admin_id};
     </update>
 
+    <!--記事を削除する-->
+    <delete id="deleteArticle">
+        delete from articles where id = #{articleId}
+    </delete>
 
 
     <resultMap id="ArticleResult" type="com.example.demo.domain.Article">

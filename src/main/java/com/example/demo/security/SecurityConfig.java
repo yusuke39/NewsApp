@@ -52,11 +52,6 @@ public class SecurityConfig  {
 
 
         @Bean
-        public static ConfigureRedisAction configureRedisAction() {
-            return ConfigureRedisAction.NO_OP;
-        }
-
-        @Bean
         public RedisTemplate<String, Admin> jsonRedisTemplate(RedisConnectionFactory connectionFactory) {
             RedisTemplate<String, Admin> redisTemplate = new RedisTemplate<>();
             redisTemplate.setConnectionFactory(connectionFactory);
@@ -67,16 +62,10 @@ public class SecurityConfig  {
             return redisTemplate;
         }
 
-//        @Bean
-//        public JedisConnectionFactory connectionFactory(){
-//            JedisConnectionFactory factory = new JedisConnectionFactory();
-//            factory.setHostName("localhost");
-//            factory.setPort(6379);
-//            factory.setUsePool(true);
-//            return factory;
-//        }
-
-
+        @Bean
+        public ConfigureRedisAction configureRedisAction() {
+            return ConfigureRedisAction.NO_OP;
+        }
 
         /**
          * 静的ファイルに認証はかけない.
